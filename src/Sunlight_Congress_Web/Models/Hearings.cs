@@ -66,7 +66,7 @@ namespace Sunlight_Congress
         public string WitnessType { get; set; }
         
         [JsonProperty("documents")]
-        public Document[] Documents { get; set; }
+        public HearingDocument[] Documents { get; set; }
 
         [JsonProperty("meeting_documents")]
         public MeetingDocument[] MeetingDocuments { get; set; }
@@ -105,7 +105,7 @@ namespace Sunlight_Congress
         public string Permalink { get; set; }
     }
 
-    public class Document
+    public class HearingDocument
     {
         [JsonProperty("description")]
         public string Description { get; set; }
