@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CongressTest
+namespace Sunlight_Congress.CongressTest
 {
     [TestClass]
     public class LegislatorTest

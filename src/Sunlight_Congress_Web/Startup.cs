@@ -12,11 +12,12 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Dnx.Runtime;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Sunlight_Congress_Web.Models;
 using Sunlight_Congress_Web.Services;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Sunlight_Congress_Web
 {
@@ -83,7 +84,7 @@ namespace Sunlight_Congress_Web
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
+                app.UseDatabaseErrorPage(options => { options.EnableAll(); });
             }
             else
             {
