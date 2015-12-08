@@ -1,11 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Sunlight_Congress
 {
+    public class DocumentWrapper
+    {
+        [JsonProperty("results")]
+        public List<Document> Results { get; set; }
+    }
+
     public class Document
     {
         [JsonProperty("document_type")]
@@ -34,6 +38,12 @@ namespace Sunlight_Congress
 
         [JsonProperty("gao_reports")]
         public GaoReport[] GaoReports { get; set; }
+
+        public static List<Document> All()
+        {
+            string url = string.Format("{0}?apikey={1}", Settings.DocumentsSearchUrl, Settings.Token);
+            return Helpers.Get<DocumentWrapper>(url).Results;
+        }
     }
 
     public class IgReport

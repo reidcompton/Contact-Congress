@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Sunlight_Congress
 {
-    public class FloorUpdates
+    public class FloorUpdateFilters
     {
         [JsonProperty("chamber")]
         public string Chamber { get; set; }
@@ -22,9 +22,6 @@ namespace Sunlight_Congress
 
         [JsonProperty("legislative_day")]
         public DateTime? LegislativeDay { get; set; }
-
-        [JsonProperty("update")]
-        public string Update { get; set; }
 
         [JsonProperty("bill_ids")]
         public string[] BillIds { get; set; }

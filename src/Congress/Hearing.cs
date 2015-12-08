@@ -6,43 +6,42 @@ using Newtonsoft.Json;
 
 namespace Sunlight_Congress
 {
-    public class Hearings
+    public class HearingWrapper
     {
-        [JsonProperty("committee_id")]
-        public string CommitteeId { get; set; }
+        [JsonProperty("results")]
+        public List<Hearing> Results { get; set; }
+    }
 
-        [JsonProperty("occurs_at")]
-        public DateTime? OccursAt { get; set; }
-
-        [JsonProperty("congress")]
-        public int? Congress { get; set; }
-
-        [JsonProperty("chamber")]
-        public string Chamber { get; set; }
-
-        [JsonProperty("dc")]
-        public bool? Dc { get; set; }
-
+    public class Hearing : HearingFilters
+    {
         [JsonProperty("room")]
         public string Room { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        [JsonProperty("bill_ids")]
-        public string[] BillIds { get; set; }
-
         [JsonProperty("url")]
         public string Url { get; set; }
-
-        [JsonProperty("hearing_type")]
-        public string HearingType { get; set; }
 
         [JsonProperty("committee")]
         public CommitteeDetails Committee { get; set; }
 
         [JsonProperty("witnesses")]
         public Witness[] Witnesses { get; set; }
+
+        public class Filters : HearingFilters { }
+
+        public static List<Hearing> All()
+        {
+            string url = string.Format("{0}?apikey={1}", Settings.HearingsUrl, Settings.Token);
+            return Helpers.Get<HearingWrapper>(url).Results;
+        }
+
+        public static List<Hearing> Filter(Hearing.Filters filters)
+        {
+            string url = string.Format("{0}?apikey={1}", Settings.HearingsUrl, Settings.Token);
+            return Helpers.Get<HearingWrapper>(Helpers.QueryString(url, filters)).Results;
+        }
     }
 
     public class Witness

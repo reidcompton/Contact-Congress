@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Sunlight_Congress_Web.Models;
 using System.Collections.Generic;
 
 namespace Sunlight_Congress

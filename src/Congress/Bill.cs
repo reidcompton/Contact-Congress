@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Sunlight_Congress
@@ -61,15 +59,21 @@ namespace Sunlight_Congress
 
         public class Filters : BillFilters { }
 
-        public static List<Legislator> All()
+        public static List<Bill> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.BillsUrl, Settings.Token);
-            return Helpers.Get<LegislatorWrapper>(url).Results;
+            return Helpers.Get<BillWrapper>(url).Results;
         }
 
         public static List<Bill> Filter(Bill.Filters filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.BillsUrl, Settings.Token);
+            return Helpers.Get<BillWrapper>(Helpers.QueryString(url, filters)).Results;
+        }
+
+        public static List<Bill> Search(string query, Bill.Filters filters)
+        {
+            string url = string.Format("{0}?apikey={1}&query={2}", Settings.BillsSearchUrl, Settings.Token, query);
             return Helpers.Get<BillWrapper>(Helpers.QueryString(url, filters)).Results;
         }
     }

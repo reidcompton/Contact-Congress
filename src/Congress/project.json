@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0-*",
+  "description": "Congress Class Library",
+  "authors": [ "Administrator" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "dnx451": {
+      "frameworkAssemblies": {
+        "System.Net": "4.0.0.0"
+      }
+    }
+  },
+  "dependencies": {
+    "Newtonsoft.Json": "7.0.1"
+  }
+}

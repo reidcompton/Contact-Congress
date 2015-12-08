@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Sunlight_Congress
 {
-    public class UpcomingBill
+    public class UpcomingBillFilters
     {
         [JsonProperty("bill_id")]
         public string BillId { get; set; }
@@ -28,14 +28,5 @@ namespace Sunlight_Congress
 
         [JsonProperty("range")]
         public string Range { get; set; }
-
-        [JsonProperty("context")]
-        public string Context { get; set; }
-
-        [JsonProperty("url")]
-        public string Url { get; set; }
-
-        [JsonProperty("bill")]
-        public Bill Bill { get; set; }
     }
 }

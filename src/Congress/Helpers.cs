@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Sunlight_Congress;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Sunlight_Congress
 {
@@ -21,7 +19,7 @@ namespace Sunlight_Congress
 
         public static T Get<T>(string url)
         {
-            using (WebClient client = new WebClient())
+            using (System.Net.WebClient client = new WebClient())
             {
                 client.BaseAddress = url;
                 string response = client.DownloadString(client.BaseAddress);
@@ -39,9 +37,7 @@ namespace Sunlight_Congress
                 if (value != null && !string.IsNullOrEmpty(value.ToString()))
                 {
                     if(IsCustomClass(value))
-                    {
-                        url = ExtractProperties(key.PropertyName, value, url);
-                    }
+                        url = ExtractPropertiesOnObjects(key.PropertyName, value, url);
                     else
                         url += string.Format("&{0}={1}", key.PropertyName, Helpers.ConvertToSafeString(value));
                 }   
@@ -49,7 +45,7 @@ namespace Sunlight_Congress
             return url;
         }
 
-        public static string ExtractProperties<T>(string originalKey, T value, string url)
+        public static string ExtractPropertiesOnObjects<T>(string originalKey, T value, string url)
         {
             var props = value.GetType().GetProperties();
             for (int i = 0; i < props.Length; i++)

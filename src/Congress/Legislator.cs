@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using Sunlight_Congress_Web.Models;
 
 namespace Sunlight_Congress
 {

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Sunlight_Congress
 {
+    public class CongressionalDocumentWrapper
+    {
+        [JsonProperty("results")]
+        public List<CongressionalDocument> Results { get; set; }
+    }
+
     public class CongressionalDocument
     {
         [JsonProperty("document_id")]
@@ -64,6 +68,12 @@ namespace Sunlight_Congress
 
         [JsonProperty("witness")]
         public CongressionalDocumentWitness Witness { get; set; }
+
+        public static List<CongressionalDocument> All()
+        {
+            string url = string.Format("{0}?apikey={1}", Settings.UpcomingBillsUrl, Settings.Token);
+            return Helpers.Get<CongressionalDocumentWrapper>(url).Results;
+        }
     }
 
     public class CongressionalDocumentWitness
