@@ -7,16 +7,16 @@ using Newtonsoft.Json;
 
 namespace Sunlight_Congress
 {
-    public class Committee
+    public class CommitteeWrapper
+    {
+        [JsonProperty("results")]
+        public List<Committee> Results { get; set; }
+    }
+
+    public class Committee : CommitteeFilters
     {
         [JsonProperty("side")]
-        public string Name { get; set; }
-
-        [JsonProperty("committee_id")]
-        public string CommitteeId { get; set; }
-
-        [JsonProperty("chamber")]
-        public string Chamber { get; set; }
+        public string Name { get; set; }        
 
         [JsonProperty("url")]
         public string Url { get; set; }
@@ -27,23 +27,28 @@ namespace Sunlight_Congress
         [JsonProperty("phone")]
         public string Phone { get; set; }
 
-        [JsonProperty("subcommittee")]
-        public bool SubCommittee { get; set; }
-
-        [JsonProperty("member_ids")]
-        public string[] MemberIds { get; set; }
-
         [JsonProperty("members")]
         public Member[] Members { get; set; }
 
         [JsonProperty("subcommittes")]
         public SubCommittee[] SubCommittees { get; set; }
 
-        [JsonProperty("parent_committee_id")]
-        public string ParentCommitteeId { get; set; }
-
         [JsonProperty("parent_committee")]
         public ParentCommittee ParentCommittee { get; set; }
+
+        public class Filters : CommitteeFilters { }
+
+        public static List<Committee> All()
+        {
+            string url = string.Format("{0}?apikey={1}", Settings.CommitteesUrl, Settings.Token);
+            return Helpers.Get<CommitteeWrapper>(url).Results;
+        }
+
+        public static List<Committee> Filter(Committee.Filters filters)
+        {
+            string url = string.Format("{0}?apikey={1}", Settings.CommitteesUrl, Settings.Token);
+            return Helpers.Get<CommitteeWrapper>(Helpers.QueryString(url, filters)).Results;
+        }
     }
 
     public class ParentCommittee

@@ -21,7 +21,7 @@ namespace Sunlight_Congress
         public string Chamber { get; set; }
 
         [JsonProperty("dc")]
-        public bool Dc { get; set; }
+        public bool? Dc { get; set; }
 
         [JsonProperty("room")]
         public string Room { get; set; }
@@ -144,6 +144,6 @@ namespace Sunlight_Congress
         public string Phone { get; set; }
 
         [JsonProperty("subcommittee")]
-        public bool Subcommittee { get; set; }
+        public bool? Subcommittee { get; set; }
     }
 }

@@ -12,7 +12,11 @@ namespace Sunlight_Congress_Web.Controllers
     {
         public IActionResult Index()
         {
-            Legislator[] l = Legislator.All().ToArray();
+
+
+            Bill[] l = Bill.Filter(new Bill.Filters() { History = new History() { Enacted = true } }).ToArray();
+
+
 
             return View();
         }

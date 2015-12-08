@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Sunlight_Congress_Web.Models;
 
 namespace Sunlight_Congress
 {
     public class CongressGateWay
-    {   
+    {
         public static WebClient Connect(string baseURL, string token)
         {
             using (WebClient client = new WebClient())
