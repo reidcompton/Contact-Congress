@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using Sunlight_Congress;
+using Congress;
 
 namespace Sunlight_Congress_Web.Controllers
 {
@@ -13,13 +13,18 @@ namespace Sunlight_Congress_Web.Controllers
         public IActionResult Index()
         {
 
-
-            Bill[] l = Bill.Filter(new Bill.Filters() { History = new History() { Enacted = true } }).ToArray();
-
-
-
             return View();
         }
+
+
+        public IActionResult Test()
+        {
+            string result = Helpers.RunTests();
+            Console.WriteLine(result);
+            ViewBag.Result = result;
+            return View();
+        }
+
 
         public IActionResult About()
         {

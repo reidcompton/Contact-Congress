@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Sunlight_Congress
+namespace Congress
 {
     public class LegislatorFilters
     {
@@ -48,7 +48,7 @@ namespace Sunlight_Congress
         public int? IcpsrId { get; set; }
 
         [JsonProperty("in_office")]
-        public string InOffice { get; set; }
+        public bool? InOffice { get; set; }
 
         [JsonProperty("last_name")]
         public string LastName { get; set; }

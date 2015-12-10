@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Sunlight_Congress
+namespace Congress
 {
     public class DocumentWrapper
     {
@@ -28,7 +28,7 @@ namespace Sunlight_Congress
         public string Title { get; set; }
 
         [JsonProperty("categories")]
-        public string Categories { get; set; }
+        public string[] Categories { get; set; }
 
         [JsonProperty("url")]
         public string Url { get; set; }

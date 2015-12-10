@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Sunlight_Congress
+namespace Congress
 {
 
     public class LegislatorWrapper

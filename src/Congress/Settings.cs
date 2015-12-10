@@ -1,4 +1,4 @@
-﻿namespace Sunlight_Congress
+﻿namespace Congress
 {
     public class Settings
     {

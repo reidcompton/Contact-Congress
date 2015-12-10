@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Sunlight_Congress_Web.Models;
 
-namespace Sunlight_Congress
+namespace Congress
 {
     public class CongressGateWay
     {

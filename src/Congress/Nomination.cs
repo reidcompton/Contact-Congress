@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Sunlight_Congress
+namespace Congress
 { 
     public class NominationWrapper
     {
@@ -28,7 +28,7 @@ namespace Sunlight_Congress
 
         public static List<Nomination> Filter(Nomination.Filters filters)
         {
-            string url = string.Format("{0}?apikey={1}", Settings.AmendmentsUrl, Settings.Token);
+            string url = string.Format("{0}?apikey={1}", Settings.NominationsUrl, Settings.Token);
             return Helpers.Get<NominationWrapper>(Helpers.QueryString(url, filters)).Results;
         }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Sunlight_Congress
+namespace Congress
 {
     public class VoteFilter
     {
@@ -39,7 +39,7 @@ namespace Sunlight_Congress
         public string Result { get; set; }
 
         [JsonProperty("bill_id")]
-        public string BillID { get; set; }
+        public string BillId { get; set; }
 
         [JsonProperty("nomination_id")]
         public string NominationId { get; set; }

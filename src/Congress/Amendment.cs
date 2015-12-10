@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Sunlight_Congress
+namespace Congress
 {
     public class AmendmentWrapper
     {

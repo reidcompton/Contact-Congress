@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Sunlight_Congress
+namespace Congress
 {
     public class BillWrapper
     {
@@ -71,10 +71,12 @@ namespace Sunlight_Congress
             return Helpers.Get<BillWrapper>(Helpers.QueryString(url, filters)).Results;
         }
 
-        public static List<Bill> Search(string query, Bill.Filters filters)
+        public static List<Bill> Search(string query, Bill.Filters filters = null)
         {
             string url = string.Format("{0}?apikey={1}&query={2}", Settings.BillsSearchUrl, Settings.Token, query);
-            return Helpers.Get<BillWrapper>(Helpers.QueryString(url, filters)).Results;
+            if (filters != null)
+                url = Helpers.QueryString(url, filters);
+            return Helpers.Get<BillWrapper>(url).Results;
         }
     }
 
