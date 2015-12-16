@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Congress
 {
-    public class HearingWrapper
+    public class HearingWrapper : BasicReponse
     {
         [JsonProperty("results")]
         public List<Hearing> Results { get; set; }

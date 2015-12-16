@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Congress
 {
-    public class CommitteeWrapper
+    public class CommitteeWrapper : BasicReponse
     {
         [JsonProperty("results")]
         public List<Committee> Results { get; set; }

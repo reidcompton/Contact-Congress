@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Congress
 {
-    public class BillWrapper
+    public class BillWrapper : BasicReponse
     {
         [JsonProperty("results")]
         public List<Bill> Results { get; set; }

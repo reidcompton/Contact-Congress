@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Congress
 {
-    public class DistrictWrapper
+    public class DistrictWrapper : BasicReponse
     {
         [JsonProperty("results")]
         public List<District> Results { get; set; }

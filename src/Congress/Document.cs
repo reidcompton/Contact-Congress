@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Congress
 {
-    public class DocumentWrapper
+    public class DocumentWrapper : BasicReponse
     {
         [JsonProperty("results")]
         public List<Document> Results { get; set; }

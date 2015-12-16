@@ -12,7 +12,6 @@ namespace Sunlight_Congress_Web.Controllers
     {
         public IActionResult Index()
         {
-
             return View();
         }
 

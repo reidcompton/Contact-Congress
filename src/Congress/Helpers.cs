@@ -16,15 +16,15 @@ namespace Congress
 
             // Amendment Filter
             Amendment[] b = Amendment.Filter(new Amendment.Filters() {
-                AmendmentId = "samdt2921-114",
-                Congress = 114,
-                Number = 2921,
-                Chamber = "senate",
-                AmendmentType = "samdt",
-                IntroducedOn = new DateTime(2015, 12, 8),
-                SponsorType = "person",
-                SponsorId = "C001070",
-                AmendsBillId = "sres207-114"
+                AmendmentId = new StringFilter("samdt2921-114"),
+                Congress = new IntFilter(114),
+                Number = new IntFilter(2921),
+                Chamber = new StringFilter("senate"),
+                AmendmentType = new StringFilter("samdt"),
+                IntroducedOn = new DateTimeFilter(new DateTime(2015, 12, 7), DateTimeFilter.Options.GreaterThan),
+                SponsorType = new StringFilter("person"),
+                SponsorId = new StringFilter("C001070"),
+                AmendsBillId = new StringFilter("sres207-114")
             }).ToArray();
 
             // Bill All
@@ -44,7 +44,7 @@ namespace Congress
                     Enacted = false,
                     Vetoed = false
                 },
-                IntroducedOn = new DateTime(2015,12,8),
+                IntroducedOn = new DateTime(2015, 12, 8),
                 Number = 4193,
                 SponsorId = "Y000033"
             }).ToArray();
@@ -108,20 +108,20 @@ namespace Congress
 
             // Legislator Filter
             Legislator[] s = Legislator.Filter(new Legislator.Filters() {
-                BioguideID = "L000585",
-                Birthday = new DateTime(1968, 7, 5),
-                Chamber = "house",
-                CrpId = "N00037031",
-                District = 18,
-                FecIds = new string[] { "H6IL18088" },
-                FirstName = "Darin",
-                Gender = "M",
-                GovTrackId = "412674",
+                BioguideID = new StringFilter("L000585"),
+                Birthday = new DateTimeFilter(new DateTime(1968, 7, 4), DateTimeFilter.Options.GreaterThan),
+                Chamber = new StringFilter("house"), 
+                CrpId = new StringFilter("N00037031"),
+                District = new IntFilter(18),
+                FecIds = new StringFilter(new string[] { "H6IL18088" }),
+                FirstName = new StringFilter("Darin"),
+                Gender = new StringFilter("M"),
+                GovTrackId = new StringFilter("412674"),
                 InOffice = true,
-                LastName = "LaHood",
-                Party = "R",
-                State = "IL",
-                VoteSmartId = 128760
+                LastName = new StringFilter("LaHood"),
+                Party = new StringFilter("R"),
+                State = new StringFilter("IL"),
+                VoteSmartId = new IntFilter(128760)
             }).ToArray();
 
             // Nomination All
@@ -267,6 +267,32 @@ namespace Congress
                 isCustom = !_systemTypes.Contains(item.GetType());
 
             return isCustom;
+        }
+
+        public abstract class Base
+        {
+            public abstract void Use();
+            public abstract object GetProp();
+        }
+
+        public abstract class GenericBase<T> : Base
+        {
+            public T Prop { get; set; }
+
+            public override object GetProp()
+            {
+                return Prop;
+            }
+        }
+
+        public class DateReceive : GenericBase<DateTime>
+        {
+            public override void Use() { }
+        }
+
+        public class DateSend : GenericBase<Tuple<DateTime, string>>
+        {
+            public override void Use() { }
         }
     }
 }

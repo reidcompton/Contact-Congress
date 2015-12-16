@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Congress
 {
-    public class FloorUpdateWrapper
+    public class FloorUpdateWrapper : BasicReponse
     {
         [JsonProperty("results")]
         public List<FloorUpdate> Results { get; set; }
