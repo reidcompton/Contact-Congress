@@ -28,7 +28,7 @@ namespace Congress
         public int? Count { get; set; }
     }
    
-    public interface Filter<T>
+    public class Filter<T>
     {
         T[] Values { get; set; }
         bool? Not { get; set; }
@@ -74,6 +74,9 @@ namespace Congress
                 case Options.Exists:
                     Exists = true;
                     break;
+                case Options.NotExists:
+                    Exists = false;
+                    break;
             }
         }
         public DateTimeFilter(DateTime[] values, Options modifier)
@@ -108,6 +111,9 @@ namespace Congress
                 case Options.Exists:
                     Exists = true;
                     break;
+                case Options.NotExists:
+                    Exists = false;
+                    break;
             }
         }
 
@@ -132,7 +138,8 @@ namespace Congress
             All,
             In,
             NotIn,
-            Exists
+            Exists,
+            NotExists
         }
     }
 
@@ -172,6 +179,9 @@ namespace Congress
                 case Options.Exists:
                     Exists = true;
                     break;
+                case Options.NotExists:
+                    Exists = false;
+                    break;
             }
         }
         public IntFilter(int[] values, Options modifier)
@@ -206,6 +216,9 @@ namespace Congress
                 case Options.Exists:
                     Exists = true;
                     break;
+                case Options.NotExists:
+                    Exists = false;
+                    break;
             }
         }
 
@@ -230,7 +243,8 @@ namespace Congress
             All,
             In,
             NotIn,
-            Exists
+            Exists,
+            NotExists
         }
     }
 
@@ -258,6 +272,9 @@ namespace Congress
                 case Options.Exists:
                     Exists = true;
                     break;
+                case Options.NotExists:
+                    Exists = false;
+                    break;
             }
         }
         public StringFilter(string[] values, Options modifier)
@@ -280,6 +297,9 @@ namespace Congress
                 case Options.Exists:
                     Exists = true;
                     break;
+                case Options.NotExists:
+                    Exists = false;
+                    break;
             }
         }
 
@@ -296,7 +316,8 @@ namespace Congress
             All,
             In,
             NotIn,
-            Exists
+            Exists,
+            NotExists
         }
     }
 }

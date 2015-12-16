@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Congress;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Congress
 
             // Amendment Filter
             Amendment[] b = Amendment.Filter(new Amendment.Filters() {
-                AmendmentId = new StringFilter("samdt2921-114"),
+                AmendmentId = new StringFilter("samdt2921-114", StringFilter.Options.All),
                 Congress = new IntFilter(114),
                 Number = new IntFilter(2921),
                 Chamber = new StringFilter("senate"),
@@ -228,12 +229,118 @@ namespace Congress
                 var value = filters.GetType().GetProperty(props[i].Name).GetValue(filters, null);
                 if (value != null && !string.IsNullOrEmpty(value.ToString()))
                 {
-                    if(IsCustomClass(value))
+                    if (IsCustomFilter(value))
+                        url = ExtractPropertiesOnCustomFilters(key.PropertyName, value, url, value.GetType());
+                    else if (IsCustomClass(value))
                         url = ExtractPropertiesOnObjects(key.PropertyName, value, url);
                     else
                         url += string.Format("&{0}={1}", key.PropertyName, Helpers.ConvertToSafeString(value));
                 }   
             }
+            return url;
+        }
+
+        public static string ExtractPropertiesOnCustomFilters(string originalKey, object value, string url, Type type)
+        {
+            if (value.GetType() == typeof(StringFilter))
+            {
+                StringFilter castVal = value as StringFilter;
+                if (castVal.Values != null)
+                {
+                    url += "&" + originalKey;
+                    if (castVal.All == true)
+                        url += "__all=";
+                    else if (castVal.In == true)
+                        url += "__in=";
+                    else if (castVal.Not == true)
+                        url += "__not=";
+                    else if (castVal.NotIn == true)
+                        url += "__nin=";
+                    else if (castVal.Exists == true)
+                        url += "__exists=true";
+                    else if (castVal.Exists == false)
+                        url += "__exists=false";
+                    else
+                        url += "=";
+                    if (castVal.Values.Length > 1)
+                        foreach (string val in castVal.Values)
+                            url += val + "|";
+                    else
+                        url += castVal.Values[0];
+                }
+            }
+            else if (value.GetType() == typeof(DateTimeFilter))
+            {
+                DateTimeFilter castVal = value as DateTimeFilter;
+                if (castVal.Values != null)
+                {
+                    url += "&" + originalKey;
+                    if (castVal.GreaterThan == true)
+                        url += "__gt=";
+                    else if (castVal.GreaterThanOrEquals == true)
+                        url += "__gte=";
+                    else if (castVal.LessThan == true)
+                        url += "__lt=";
+                    else if (castVal.LessThanOrEquals == true)
+                        url += "__lte=";
+                    else if (castVal.All == true)
+                        url += "__all=";
+                    else if (castVal.In == true)
+                        url += "__in=";
+                    else if (castVal.Not == true)
+                        url += "__not=";
+                    else if (castVal.NotIn == true)
+                        url += "__nin=";
+                    else if (castVal.Exists == true)
+                        url += "__exists=true";
+                    else if (castVal.Exists == false)
+                        url += "__exists=false";
+                    else
+                        url += "=";
+                    if (castVal.Values.Length > 1)
+                        foreach (DateTime val in castVal.Values)
+                            url += val + "|";
+                    else
+                        url += castVal.Values[0];
+                }
+                
+            }
+            else if (value.GetType() == typeof(IntFilter))
+            {
+                IntFilter castVal = value as IntFilter;
+                if(castVal.Values != null)
+                {
+                    url += "&" + originalKey;
+                    if (castVal.GreaterThan == true)
+                        url += "__gt=";
+                    else if (castVal.GreaterThanOrEquals == true)
+                        url += "__gte=";
+                    else if (castVal.LessThan == true)
+                        url += "__lt=";
+                    else if (castVal.LessThanOrEquals == true)
+                        url += "__lte=";
+                    else if (castVal.All == true)
+                        url += "__all=";
+                    else if (castVal.In == true)
+                        url += "__in=";
+                    else if (castVal.Not == true)
+                        url += "__not=";
+                    else if (castVal.NotIn == true)
+                        url += "__nin=";
+                    else if (castVal.Exists == true)
+                        url += "__exists=true";
+                    else if (castVal.Exists == false)
+                        url += "__exists=false";
+                    else
+                        url += "=";
+                    if (castVal.Values.Length > 1)
+                        foreach (int val in castVal.Values)
+                            url += val + "|";
+                    else
+                        url += castVal.Values[0];
+                }   
+            }
+            
             return url;
         }
 
@@ -250,6 +357,14 @@ namespace Congress
                 }
             }
             return url;
+        }
+
+        public static bool IsCustomFilter<T>(T item)
+        {
+            bool isCustom = false;
+            if (item.GetType().BaseType.Name == "Filter`1")
+                isCustom = true;
+            return isCustom;
         }
 
         private static List<Type> _systemTypes;
