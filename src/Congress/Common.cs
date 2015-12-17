@@ -28,17 +28,34 @@ namespace Congress
         public int? Count { get; set; }
     }
    
-    public class Filter<T>
+    public class Filter
     {
-        T[] Values { get; set; }
-        bool? Not { get; set; }
-        bool? All { get; set; }
-        bool? In { get; set; }
-        bool? NotIn { get; set; }
-        bool? Exists { get; set; }
+        public bool? GreaterThan { get; set; }
+        public bool? GreaterThanOrEquals { get; set; }
+        public bool? LessThan { get; set; }
+        public bool? LessThanOrEquals { get; set; }
+        public bool? Not { get; set; }
+        public bool? All { get; set; }
+        public bool? In { get; set; }
+        public bool? NotIn { get; set; }
+        public bool? Exists { get; set; }
+
+        public enum Options
+        {
+            GreaterThan,
+            GreaterThanOrEquals,
+            LessThan,
+            LessThanOrEquals,
+            Not,
+            All,
+            In,
+            NotIn,
+            Exists,
+            NotExists
+        }
     }
 
-    public class DateTimeFilter : Filter<DateTime>
+    public class DateTimeFilter : Filter
     {
         public DateTimeFilter(DateTime value) { Values = new DateTime[] { new DateTime(value.Ticks) }; }
         public DateTimeFilter(DateTime[] values) { Values = values; }
@@ -118,32 +135,9 @@ namespace Congress
         }
 
         public DateTime[] Values { get; set; }
-        public bool? GreaterThan { get; set; }
-        public bool? GreaterThanOrEquals { get; set; }
-        public bool? LessThan { get; set; }
-        public bool? LessThanOrEquals { get; set; }
-        public bool? Not { get; set; }
-        public bool? All { get; set; }
-        public bool? In { get; set; }
-        public bool? NotIn { get; set; }
-        public bool? Exists { get; set; }
-
-        public enum Options
-        {
-            GreaterThan,
-            GreaterThanOrEquals,
-            LessThan,
-            LessThanOrEquals,
-            Not,
-            All,
-            In,
-            NotIn,
-            Exists,
-            NotExists
-        }
     }
 
-    public class IntFilter : Filter<int>
+    public class IntFilter : Filter
     {
         public IntFilter(int value) { Values = new int[] { value }; }
         public IntFilter(int[] values) { Values = values; }
@@ -223,32 +217,10 @@ namespace Congress
         }
 
         public int[] Values { get; set; }
-        public bool? GreaterThan { get; set; }
-        public bool? GreaterThanOrEquals { get; set; }
-        public bool? LessThan { get; set; }
-        public bool? LessThanOrEquals { get; set; }
-        public bool? Not { get; set; }
-        public bool? All { get; set; }
-        public bool? In { get; set; }
-        public bool? NotIn { get; set; }
-        public bool? Exists { get; set; }
-
-        public enum Options
-        {
-            GreaterThan,
-            GreaterThanOrEquals,
-            LessThan,
-            LessThanOrEquals,
-            Not,
-            All,
-            In,
-            NotIn,
-            Exists,
-            NotExists
-        }
+        
     }
 
-    public class StringFilter : Filter<string>
+    public class StringFilter : Filter
     {
         public StringFilter(string value) { Values = new string[] { value }; }
         public StringFilter(string[] values) { Values = values; }
@@ -304,20 +276,5 @@ namespace Congress
         }
 
         public string[] Values { get; set; }
-        public bool? Not { get; set; }
-        public bool? All { get; set; }
-        public bool? In { get; set; }
-        public bool? NotIn { get; set; }
-        public bool? Exists { get; set; }
-
-        public enum Options
-        {
-            Not,
-            All,
-            In,
-            NotIn,
-            Exists,
-            NotExists
-        }
     }
 }

@@ -19,7 +19,6 @@ namespace Sunlight_Congress_Web.Controllers
         public IActionResult Test()
         {
             string result = Helpers.RunTests();
-            Console.WriteLine(result);
             ViewBag.Result = result;
             return View();
         }

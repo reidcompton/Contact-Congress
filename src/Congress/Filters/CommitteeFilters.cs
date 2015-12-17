@@ -9,18 +9,18 @@ namespace Congress
     public class CommitteeFilters
     {
         [JsonProperty("committee_id")]
-        public string CommitteeId { get; set; }
+        public StringFilter CommitteeId { get; set; }
 
         [JsonProperty("chamber")]
-        public string Chamber { get; set; }
+        public StringFilter Chamber { get; set; }
 
         [JsonProperty("subcommittee")]
         public bool? SubCommittee { get; set; }
 
         [JsonProperty("member_ids")]
-        public string[] MemberIds { get; set; }
+        public StringFilter[] MemberIds { get; set; }
 
         [JsonProperty("parent_committee_id")]
-        public string ParentCommitteeId { get; set; }
+        public StringFilter ParentCommitteeId { get; set; }
     }
 }

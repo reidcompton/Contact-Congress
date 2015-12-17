@@ -10,8 +10,47 @@ namespace Congress
         public List<Vote> Results { get; set; }
     }
 
-    public class Vote : VoteFilter
+    public class Vote
     {
+        [JsonProperty("roll_id")]
+        public string RollId { get; set; }
+
+        [JsonProperty("chamber")]
+        public string Chamber { get; set; }
+
+        [JsonProperty("number")]
+        public int? Number { get; set; }
+
+        [JsonProperty("year")]
+        public int? Year { get; set; }
+
+        [JsonProperty("congress")]
+        public int? Congress { get; set; }
+
+        [JsonProperty("voted_at")]
+        public DateTime? VotedAt { get; set; }
+
+        [JsonProperty("vote_type")]
+        public string VoteType { get; set; }
+
+        [JsonProperty("roll_type")]
+        public string RollType { get; set; }
+
+        [JsonProperty("required")]
+        public string Required { get; set; }
+
+        [JsonProperty("result")]
+        public string Result { get; set; }
+
+        [JsonProperty("bill_id")]
+        public string BillId { get; set; }
+
+        [JsonProperty("nomination_id")]
+        public string NominationId { get; set; }
+
+        [JsonProperty("breakdown")]
+        public Breakdown Breakdown { get; set; }
+
         [JsonProperty("question")]
         public string Question { get; set; }
 

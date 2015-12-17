@@ -10,8 +10,29 @@ namespace Congress
         public List<UpcomingBill> Results { get; set; }
     }
 
-    public class UpcomingBill : UpcomingBillFilters
+    public class UpcomingBill
     {
+        [JsonProperty("bill_id")]
+        public string BillId { get; set; }
+
+        [JsonProperty("congress")]
+        public int? Congress { get; set; }
+
+        [JsonProperty("chamber")]
+        public string Chamber { get; set; }
+
+        [JsonProperty("source_type")]
+        public string SourceType { get; set; }
+
+        [JsonProperty("legislative_day")]
+        public DateTime? LegislativeDay { get; set; }
+
+        [JsonProperty("scheduled_at")]
+        public DateTime? ScheduledAt { get; set; }
+
+        [JsonProperty("range")]
+        public string Range { get; set; }
+
         [JsonProperty("context")]
         public string Context { get; set; }
 

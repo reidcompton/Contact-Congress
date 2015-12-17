@@ -1,99 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Congress
 {
     public class BillFilters
     {
         [JsonProperty("bill_id")]
-        public string BillId { get; set; }
+        public StringFilter BillId { get; set; }
 
         [JsonProperty("bill_type")]
-        public string BillType { get; set; }
+        public StringFilter BillType { get; set; }
 
         [JsonProperty("number")]
-        public int? Number { get; set; }
+        public IntFilter Number { get; set; }
 
         [JsonProperty("congress")]
-        public int? Congress { get; set; }
+        public IntFilter Congress { get; set; }
 
         [JsonProperty("chamber")]
-        public string Chamber { get; set; }
+        public StringFilter Chamber { get; set; }
 
         [JsonProperty("introduced_on")]
-        public DateTime? IntroducedOn { get; set; }
+        public DateTimeFilter IntroducedOn { get; set; }
 
         [JsonProperty("last_action_at")]
-        public DateTime? LastActionAt { get; set; }
+        public DateTimeFilter LastActionAt { get; set; }
 
         [JsonProperty("last_vote_at")]
-        public DateTime? LastVoteAt { get; set; }
+        public DateTimeFilter LastVoteAt { get; set; }
 
         [JsonProperty("last_version_on")]
-        public DateTime? LastVersionOn { get; set; }
+        public DateTimeFilter LastVersionOn { get; set; }
 
         [JsonProperty("nicknames")]
-        public string[] Nicknames { get; set; }
+        public StringFilter Nicknames { get; set; }
 
         [JsonProperty("keywords")]
-        public string[] Keywords { get; set; }
+        public StringFilter Keywords { get; set; }
 
         [JsonProperty("sponsor_id")]
-        public string SponsorId { get; set; }
+        public StringFilter SponsorId { get; set; }
 
         [JsonProperty("cosponsor_ids")]
-        public string[] CoSponsorIds { get; set; }
+        public StringFilter CoSponsorIds { get; set; }
 
         [JsonProperty("cosponsors_count")]
-        public int? CoSponsorsCount { get; set; }
+        public IntFilter CoSponsorsCount { get; set; }
 
         [JsonProperty("withdrawn_cosponsor_ids")]
-        public string[] WithdrawnCoSponsorIds { get; set; }
+        public StringFilter WithdrawnCoSponsorIds { get; set; }
 
         [JsonProperty("withdrawn_cosponsors_count")]
-        public int? WithdrawnCoSponsorsCount { get; set; }
+        public IntFilter WithdrawnCoSponsorsCount { get; set; }
 
         [JsonProperty("committee_ids")]
-        public string[] CommitteeIds { get; set; }
+        public StringFilter CommitteeIds { get; set; }
 
         [JsonProperty("related_bill_ids")]
-        public string[] RelatedBillIds { get; set; }
+        public StringFilter RelatedBillIds { get; set; }
 
         [JsonProperty("history")]
-        public History History { get; set; }
+        public HistoryFilter History { get; set; }
 
         [JsonProperty("enacted_as")]
-        public EnactedAs EnactedAs { get; set; }
+        public EnactedAsFilter EnactedAs { get; set; }
     }
 
-    public class History
+    public class HistoryFilter
     {
         [JsonProperty("active")]
         public bool? Active { get; set; }
 
         [JsonProperty("active_at")]
-        public DateTime? ActiveAt { get; set; }
+        public DateTimeFilter ActiveAt { get; set; }
 
         [JsonProperty("house_passage_result")]
-        public string HousePassageResult { get; set; }
+        public StringFilter HousePassageResult { get; set; }
 
         [JsonProperty("house_passage_result_at")]
-        public DateTime? HousePassageResultAt { get; set; }
+        public DateTimeFilter HousePassageResultAt { get; set; }
 
         [JsonProperty("senate_cloture_result")]
-        public string SenateClotureResult { get; set; }
+        public StringFilter SenateClotureResult { get; set; }
 
         [JsonProperty("senate_cloture_result_at")]
-        public DateTime? SenateClotureResultAt { get; set; }
+        public DateTimeFilter SenateClotureResultAt { get; set; }
 
         [JsonProperty("senate_passage_result")]
-        public string SenatePassageResult { get; set; }
+        public StringFilter SenatePassageResult { get; set; }
 
         [JsonProperty("senate_passage_result_at")]
-        public DateTime? SenatePassageResultAt { get; set; }
+        public DateTimeFilter SenatePassageResultAt { get; set; }
 
         [JsonProperty("vetoed")]
         public bool? Vetoed { get; set; }
@@ -105,18 +101,18 @@ namespace Congress
         public bool? Enacted { get; set; }
 
         [JsonProperty("enacted_at")]
-        public DateTime? EnactedAt { get; set; }
+        public DateTimeFilter EnactedAt { get; set; }
     }
 
-    public class EnactedAs
+    public class EnactedAsFilter
     {
         [JsonProperty("congress")]
-        public int? Congress { get; set; }
+        public IntFilter Congress { get; set; }
 
         [JsonProperty("law_type")]
-        public string LawType { get; set; }
+        public StringFilter LawType { get; set; }
 
         [JsonProperty("number")]
-        public int? Number { get; set; }
+        public IntFilter Number { get; set; }
     }
 }

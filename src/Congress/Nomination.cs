@@ -10,8 +10,32 @@ namespace Congress
         public List<Nomination> Results { get; set; }
     }
 
-    public class Nomination : NominationFilters
+    public class Nomination
     {
+        [JsonProperty("nomination_id")]
+        public string NominationId { get; set; }
+
+        [JsonProperty("congress")]
+        public int? Congress { get; set; }
+
+        [JsonProperty("number")]
+        public string Number { get; set; }
+
+        [JsonProperty("received_on")]
+        public DateTime? ReceivedOn { get; set; }
+
+        [JsonProperty("last_action_at")]
+        public DateTime? LastActionAt { get; set; }
+
+        [JsonProperty("organization")]
+        public string Organization { get; set; }
+
+        [JsonProperty("nominees")]
+        public Nominee[] Nominees { get; set; }
+
+        [JsonProperty("committee_ids")]
+        public string[] CommitteeIds { get; set; }
+
         [JsonProperty("actions")]
         public NominationAction[] Actions { get; set; }
 
