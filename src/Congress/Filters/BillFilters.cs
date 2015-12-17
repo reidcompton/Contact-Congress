@@ -2,7 +2,7 @@
 
 namespace Congress
 {
-    public class BillFilters
+    public class BillFilters : BasicRequest
     {
         [JsonProperty("bill_id")]
         public StringFilter BillId { get; set; }

@@ -16,6 +16,19 @@ namespace Congress
 
     }
 
+    public class BasicRequest
+    {
+        [JsonProperty("count")]
+        public int? Count { get; set; }
+
+        [JsonProperty("page")]
+        public Page Page { get; set; }
+
+        [JsonProperty("per_page")]
+        public int? PerPage { get; set; }
+
+    }
+
     public class Page
     {
         [JsonProperty("per_page")]

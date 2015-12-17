@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Congress
 {
-    public class FloorUpdateFilters
+    public class FloorUpdateFilters : BasicRequest
     {
         [JsonProperty("chamber")]
         public StringFilter Chamber { get; set; }

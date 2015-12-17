@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Congress
 { 
-    public class LegislatorFilters
+    public class LegislatorFilters : BasicRequest
     {
         [JsonProperty("birthday")]
         public DateTimeFilter Birthday { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Congress
 {
-    public class HearingFilters
+    public class HearingFilters : BasicRequest
     {
         [JsonProperty("committee_id")]
         public StringFilter CommitteeId { get; set; }
