@@ -173,8 +173,14 @@ namespace Congress
                 VoteType = new StringFilter("amendment")
             }).ToArray();
 
+            // Vote Filter by Breakdown
+            Vote[] z = Vote.Filter(new Vote.Filters()
+            {
+                Breakdown = new BreakdownFilter() { Party = new PartyFilter() { Republican = new TotalFilter() { Yea = new IntFilter(30, Filter.Options.GreaterThan) } } }
+            }).ToArray();
+
             string result = string.Format(
-                "a: {0}</p><p> b: {1}</p><p> c: {2}</p><p> d: {3}</p><p> e: {4}</p><p> f: {5}</p><p> g: {6}</p><p> h: {7}</p><p> i: {8}</p><p> j: {9}</p><p> k: {10}</p><p> l: {11}</p><p> m: {12}</p><p> n: {13}</p><p> o: {14}</p><p> p: {15}</p><p> q: {16}</p><p> r: {17}</p><p> s: {18}</p><p> t: {19}</p><p> u: {20}</p><p> v: {21}</p><p> w: {22}</p><p> x: {23}</p><p> y: {24}",
+                "a: {0}</p><p> b: {1}</p><p> c: {2}</p><p> d: {3}</p><p> e: {4}</p><p> f: {5}</p><p> g: {6}</p><p> h: {7}</p><p> i: {8}</p><p> j: {9}</p><p> k: {10}</p><p> l: {11}</p><p> m: {12}</p><p> n: {13}</p><p> o: {14}</p><p> p: {15}</p><p> q: {16}</p><p> r: {17}</p><p> s: {18}</p><p> t: {19}</p><p> u: {20}</p><p> v: {21}</p><p> w: {22}</p><p> x: {23}</p><p> y: {24} </p><p> z: {25}",
                 a.Length > 0,
                 b.Length > 0,
                 c.Length > 0,
@@ -199,7 +205,8 @@ namespace Congress
                 v.Length > 0,
                 w.Length > 0,
                 x.Length > 0,
-                y.Length > 0
+                y.Length > 0,
+                z.Length > 0
             );
             return result;
         }

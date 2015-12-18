@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Congress
 {
@@ -41,6 +42,42 @@ namespace Congress
         public StringFilter NominationId { get; set; }
 
         [JsonProperty("breakdown")]
-        public Breakdown Breakdown { get; set; }
+        public BreakdownFilter Breakdown { get; set; }
+    }
+
+    public class BreakdownFilter
+    {
+        [JsonProperty("total")]
+        public TotalFilter Total { get; set; }
+
+        [JsonProperty("party")]
+        public PartyFilter Party { get; set; }
+    }
+
+    public class TotalFilter
+    {
+        [JsonProperty("Yea")]
+        public IntFilter Yea { get; set; }
+
+        [JsonProperty("Nay")]
+        public IntFilter Nay { get; set; }
+
+        [JsonProperty("Not Voting")]
+        public IntFilter NotVoting { get; set; }
+
+        [JsonProperty("Present")]
+        public IntFilter Present { get; set; }
+    }
+
+    public class PartyFilter
+    {
+        [JsonProperty("R")]
+        public TotalFilter Republican { get; set; }
+
+        [JsonProperty("D")]
+        public TotalFilter Democrat { get; set; }
+
+        [JsonProperty("I")]
+        public TotalFilter Independent { get; set; }
     }
 }

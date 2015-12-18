@@ -23,6 +23,7 @@ namespace Congress
         public static string QueryString<T>(string url, T filters)
         {
             var props = filters.GetType().GetProperties();
+            string localUrl = "";
             for (int i = 0; i < props.Length; i++)
             {
                 JsonPropertyAttribute key = filters.GetType().GetProperty(props[i].Name).GetCustomAttributes(typeof(JsonPropertyAttribute), false)[0] as JsonPropertyAttribute;
@@ -30,71 +31,71 @@ namespace Congress
                 if (value != null && !string.IsNullOrEmpty(value.ToString()))
                 {
                     if (value.GetType().BaseType.Name == "Filter")          // is filter class
-                        url = ExtractPropertiesOnCustomFilters(key.PropertyName, value, url, value.GetType());
+                        localUrl = ExtractPropertiesOnCustomFilters(key.PropertyName, value);
                     else if (IsCustomClass(value))                          // is custom class 
-                        url = ExtractPropertiesOnObjects(key.PropertyName, value, url);
+                        localUrl = ExtractPropertiesOnObjects(key.PropertyName, value);
                     else                                                    // is normal system class
-                        url += string.Format("&{0}={1}", key.PropertyName, Helpers.ConvertToSafeString(value));
+                        localUrl = string.Format("{0}={1}", key.PropertyName, Helpers.ConvertToSafeString(value));
                 }
             }
-            return url;
+            return url += string.Format("&{0}", localUrl);
         }
 
-        public static string ExtractPropertiesOnObjects<T>(string originalKey, T value, string url)
+        public static string ExtractPropertiesOnObjects<T>(string originalKey, T value)
         {
             var props = value.GetType().GetProperties();
             for (int i = 0; i < props.Length; i++)
             {
-                if (value.GetType().BaseType.Name == "Filter")              // is filter class
-                    url = ExtractPropertiesOnCustomFilters(originalKey, value, url, value.GetType());
-                else                                                        // is normal system type
+                JsonPropertyAttribute key = value.GetType().GetProperty(props[i].Name).GetCustomAttributes(typeof(JsonPropertyAttribute), false)[0] as JsonPropertyAttribute;
+                var subValue = value.GetType().GetProperty(props[i].Name).GetValue(value, null);
+                if (subValue != null && !string.IsNullOrEmpty(subValue.ToString()))
                 {
-                    JsonPropertyAttribute key = value.GetType().GetProperty(props[i].Name).GetCustomAttributes(typeof(JsonPropertyAttribute), false)[0] as JsonPropertyAttribute;
-                    var subValue = value.GetType().GetProperty(props[i].Name).GetValue(value, null);
-                    if (subValue != null && !string.IsNullOrEmpty(subValue.ToString()))
-                    {
-                        url += string.Format("&{0}.{1}={2}", originalKey, key.PropertyName, Helpers.ConvertToSafeString(subValue));
-                    }
+                    originalKey = string.Format("{0}.{1}", originalKey, key.PropertyName);
+                    if (subValue.GetType().BaseType.Name == "Filter")                                   // is filter class
+                        originalKey = ExtractPropertiesOnCustomFilters(originalKey, subValue);
+                    else if (IsCustomClass(subValue))                                                   // is custom class
+                        originalKey = ExtractPropertiesOnObjects(originalKey, subValue);      
+                    else                                                                                // is sytem class
+                        originalKey = string.Format("{0}={1}&", originalKey, Helpers.ConvertToSafeString(subValue));
                 }
             }
-            return url;
+            return originalKey;
         }
 
-        public static string ExtractPropertiesOnCustomFilters(string originalKey, object value, string url, Type type)
+        public static string ExtractPropertiesOnCustomFilters(string originalKey, object value)
         {
             if (value.GetType() == typeof(StringFilter))
             {
                 StringFilter castVal = value as StringFilter;
                 if (castVal.Values != null)
                 {
-                    url += "&" + originalKey;
                     if (castVal.GreaterThan == true)
-                        url += "__gt=";
+                        originalKey += "__gt=";
                     else if (castVal.GreaterThanOrEquals == true)
-                        url += "__gte=";
+                        originalKey += "__gte=";
                     else if (castVal.LessThan == true)
-                        url += "__lt=";
+                        originalKey += "__lt=";
                     else if (castVal.LessThanOrEquals == true)
-                        url += "__lte=";
+                        originalKey += "__lte=";
                     if (castVal.All == true)
-                        url += "__all=";
+                        originalKey += "__all=";
                     else if (castVal.In == true)
-                        url += "__in=";
+                        originalKey += "__in=";
                     else if (castVal.Not == true)
-                        url += "__not=";
+                        originalKey += "__not=";
                     else if (castVal.NotIn == true)
-                        url += "__nin=";
+                        originalKey += "__nin=";
                     else if (castVal.Exists == true)
-                        url += "__exists=true";
+                        originalKey += "__exists=true";
                     else if (castVal.Exists == false)
-                        url += "__exists=false";
+                        originalKey += "__exists=false";
                     else
-                        url += "=";
+                        originalKey += "=";
                     if (castVal.Values.Length > 1)
                         foreach (string val in castVal.Values)
-                            url += ConvertToSafeString(val)+ "|";
+                            originalKey += ConvertToSafeString(val)+ "|";
                     else
-                        url += ConvertToSafeString(castVal.Values[0]);
+                        originalKey += ConvertToSafeString(castVal.Values[0]);
                 }
             }
             else if (value.GetType() == typeof(DateTimeFilter))
@@ -102,34 +103,33 @@ namespace Congress
                 DateTimeFilter castVal = value as DateTimeFilter;
                 if (castVal.Values != null)
                 {
-                    url += "&" + originalKey;
                     if (castVal.GreaterThan == true)
-                        url += "__gt=";
+                        originalKey += "__gt=";
                     else if (castVal.GreaterThanOrEquals == true)
-                        url += "__gte=";
+                        originalKey += "__gte=";
                     else if (castVal.LessThan == true)
-                        url += "__lt=";
+                        originalKey += "__lt=";
                     else if (castVal.LessThanOrEquals == true)
-                        url += "__lte=";
+                        originalKey += "__lte=";
                     else if (castVal.All == true)
-                        url += "__all=";
+                        originalKey += "__all=";
                     else if (castVal.In == true)
-                        url += "__in=";
+                        originalKey += "__in=";
                     else if (castVal.Not == true)
-                        url += "__not=";
+                        originalKey += "__not=";
                     else if (castVal.NotIn == true)
-                        url += "__nin=";
+                        originalKey += "__nin=";
                     else if (castVal.Exists == true)
-                        url += "__exists=true";
+                        originalKey += "__exists=true";
                     else if (castVal.Exists == false)
-                        url += "__exists=false";
+                        originalKey += "__exists=false";
                     else
-                        url += "=";
+                        originalKey += "=";
                     if (castVal.Values.Length > 1)
                         foreach (DateTime val in castVal.Values)
-                            url += ConvertToSafeString(val) + "|";
+                            originalKey += ConvertToSafeString(val) + "|";
                     else
-                        url += ConvertToSafeString(castVal.Values[0]);
+                        originalKey += ConvertToSafeString(castVal.Values[0]);
                 }
                 
             }
@@ -138,38 +138,37 @@ namespace Congress
                 IntFilter castVal = value as IntFilter;
                 if(castVal.Values != null)
                 {
-                    url += "&" + originalKey;
                     if (castVal.GreaterThan == true)
-                        url += "__gt=";
+                        originalKey += "__gt=";
                     else if (castVal.GreaterThanOrEquals == true)
-                        url += "__gte=";
+                        originalKey += "__gte=";
                     else if (castVal.LessThan == true)
-                        url += "__lt=";
+                        originalKey += "__lt=";
                     else if (castVal.LessThanOrEquals == true)
-                        url += "__lte=";
+                        originalKey += "__lte=";
                     else if (castVal.All == true)
-                        url += "__all=";
+                        originalKey += "__all=";
                     else if (castVal.In == true)
-                        url += "__in=";
+                        originalKey += "__in=";
                     else if (castVal.Not == true)
-                        url += "__not=";
+                        originalKey += "__not=";
                     else if (castVal.NotIn == true)
-                        url += "__nin=";
+                        originalKey += "__nin=";
                     else if (castVal.Exists == true)
-                        url += "__exists=true";
+                        originalKey += "__exists=true";
                     else if (castVal.Exists == false)
-                        url += "__exists=false";
+                        originalKey += "__exists=false";
                     else
-                        url += "=";
+                        originalKey += "=";
                     if (castVal.Values.Length > 1)
                         foreach (int val in castVal.Values)
-                            url += ConvertToSafeString(val) + "|";
+                            originalKey += ConvertToSafeString(val) + "|";
                     else
-                        url += ConvertToSafeString(castVal.Values[0]);
+                        originalKey += ConvertToSafeString(castVal.Values[0]);
                 }   
             }
             
-            return url;
+            return originalKey;
         }
 
         private static List<Type> _systemTypes;
@@ -181,7 +180,7 @@ namespace Congress
             if (item.GetType().BaseType.Name == "Array")
             {
                 T[] itemToCheck = item as T[];
-                isCustom = !_systemTypes.Contains( itemToCheck[0].GetType());
+                isCustom = !_systemTypes.Contains(itemToCheck[0].GetType());
             }
             else
                 isCustom = !_systemTypes.Contains(item.GetType());
