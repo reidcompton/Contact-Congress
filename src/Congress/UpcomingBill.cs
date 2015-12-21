@@ -42,15 +42,13 @@ namespace Congress
         [JsonProperty("bill")]
         public Bill Bill { get; set; }
 
-        public class Filters : UpcomingBillFilters { }
-
         public static List<UpcomingBill> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.UpcomingBillsUrl, Settings.Token);
             return Helpers.Get<UpcomingBillWrapper>(url).Results;
         }
 
-        public static List<UpcomingBill> Filter(UpcomingBill.Filters filters)
+        public static List<UpcomingBill> Search(FilterBy.UpcomingBill filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.UpcomingBillsUrl, Settings.Token);
             return Helpers.Get<UpcomingBillWrapper>(Helpers.QueryString(url, filters)).Results;

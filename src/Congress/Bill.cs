@@ -117,21 +117,19 @@ namespace Congress
         [JsonProperty("upcoming")]
         public Upcoming[] Upcoming { get; set; }
 
-        public class Filters : BillFilters { }
-
         public static List<Bill> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.BillsUrl, Settings.Token);
             return Helpers.Get<BillWrapper>(url).Results;
         }
 
-        public static List<Bill> Filter(Bill.Filters filters)
+        public static List<Bill> Search(FilterBy.Bill filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.BillsUrl, Settings.Token);
             return Helpers.Get<BillWrapper>(Helpers.QueryString(url, filters)).Results;
         }
 
-        public static List<Bill> Search(string query, Bill.Filters filters = null)
+        public static List<Bill> Search(string query, FilterBy.Bill filters = null)
         {
             string url = string.Format("{0}?apikey={1}&query={2}", Settings.BillsSearchUrl, Settings.Token, query);
             if (filters != null)

@@ -4,18 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Congress
+namespace Congress.FilterBy
 { 
-    public class LegislatorFilters : BasicRequest
+    public class Legislator : BasicRequest
     {
         [JsonProperty("birthday")]
-        public DateTimeFilter Birthday { get; set; }
+        public DateFilter Birthday { get; set; }
 
         [JsonProperty("term_end")]
-        public DateTimeFilter TermEnd { get; set; }
+        public DateFilter TermEnd { get; set; }
 
         [JsonProperty("term_start")]
-        public DateTimeFilter TermStart { get; set; }
+        public DateFilter TermStart { get; set; }
 
         [JsonProperty("aliases")]
         public StringFilter Aliases { get; set; }

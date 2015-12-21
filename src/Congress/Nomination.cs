@@ -42,15 +42,13 @@ namespace Congress
         [JsonProperty("last_action")]
         public NominationAction LastAction { get; set; }
 
-        public class Filters : NominationFilters { }
-
         public static List<Nomination> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.AmendmentsUrl, Settings.Token);
             return Helpers.Get<NominationWrapper>(url).Results;
         }
 
-        public static List<Nomination> Filter(Nomination.Filters filters)
+        public static List<Nomination> Search(FilterBy.Nomination filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.NominationsUrl, Settings.Token);
             return Helpers.Get<NominationWrapper>(Helpers.QueryString(url, filters)).Results;

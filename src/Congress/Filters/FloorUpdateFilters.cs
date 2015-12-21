@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Congress
+namespace Congress.FilterBy
 {
-    public class FloorUpdateFilters : BasicRequest
+    public class FloorUpdate : BasicRequest
     {
         [JsonProperty("chamber")]
         public StringFilter Chamber { get; set; }
 
         [JsonProperty("timestamp")]
-        public DateTimeFilter Timestamp { get; set; }
+        public DateFilter Timestamp { get; set; }
 
         [JsonProperty("congress")]
         public IntFilter Congress { get; set; }
@@ -21,7 +21,7 @@ namespace Congress
         public IntFilter Year { get; set; }
 
         [JsonProperty("legislative_day")]
-        public DateTimeFilter LegislativeDay { get; set; }
+        public DateFilter LegislativeDay { get; set; }
 
         [JsonProperty("bill_ids")]
         public StringFilter[] BillIds { get; set; }

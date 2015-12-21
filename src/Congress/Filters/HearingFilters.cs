@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
 
-namespace Congress
+namespace Congress.FilterBy
 {
-    public class HearingFilters : BasicRequest
+    public class Hearing : BasicRequest
     {
         [JsonProperty("committee_id")]
         public StringFilter CommitteeId { get; set; }
 
         [JsonProperty("occurs_at")]
-        public DateTimeFilter OccursAt { get; set; }
+        public DateFilter OccursAt { get; set; }
 
         [JsonProperty("congress")]
         public IntFilter Congress { get; set; }

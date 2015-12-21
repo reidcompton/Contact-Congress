@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Congress
+namespace Congress.FilterBy
 { 
-    public class CommitteeFilters : BasicRequest
+    public class Committee : BasicRequest
     {
         [JsonProperty("committee_id")]
         public StringFilter CommitteeId { get; set; }

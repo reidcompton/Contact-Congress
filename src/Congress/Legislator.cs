@@ -126,8 +126,6 @@ namespace Congress
 
         [JsonProperty("term_start")]
         public DateTime? TermStart { get; set; }
-
-        public class Filters : LegislatorFilters { }
         
         public static List<Legislator> All()
         {
@@ -135,19 +133,19 @@ namespace Congress
             return Helpers.Get<LegislatorWrapper>(url).Results;
         }
 
-        public static List<Legislator> Locate(int zip)
+        public static List<Legislator> Search(int zip)
         {
             string url = string.Format("{0}?zip={1}&apikey={2}", Settings.LegislatorsLocateUrl, zip, Settings.Token);
             return Helpers.Get<LegislatorWrapper>(url).Results;
         }
 
-        public static List<Legislator> Locate(double latitude, double longitude)
+        public static List<Legislator> Search(double latitude, double longitude)
         {
             string url = string.Format("{0}?latitude={1}&longitude={2}&apikey={3}", Settings.LegislatorsLocateUrl, latitude, longitude, Settings.Token);
             return Helpers.Get<LegislatorWrapper>(url).Results;
         }
         
-        public static List<Legislator> Filter(Legislator.Filters filters)
+        public static List<Legislator> Search(FilterBy.Legislator filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.LegislatorsUrl, Settings.Token);
             return Helpers.Get<LegislatorWrapper>(Helpers.QueryString(url, filters)).Results;

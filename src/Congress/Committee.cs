@@ -47,15 +47,13 @@ namespace Congress
         [JsonProperty("parent_committee")]
         public ParentCommittee ParentCommittee { get; set; }
 
-        public class Filters : CommitteeFilters { }
-
         public static List<Committee> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.CommitteesUrl, Settings.Token);
             return Helpers.Get<CommitteeWrapper>(url).Results;
         }
 
-        public static List<Committee> Filter(Committee.Filters filters)
+        public static List<Committee> Search(FilterBy.Committee filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.CommitteesUrl, Settings.Token);
             return Helpers.Get<CommitteeWrapper>(Helpers.QueryString(url, filters)).Results;

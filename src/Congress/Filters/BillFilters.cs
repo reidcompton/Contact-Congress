@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Congress
+namespace Congress.FilterBy
 {
-    public class BillFilters : BasicRequest
+    public class Bill : BasicRequest
     {
         [JsonProperty("bill_id")]
         public StringFilter BillId { get; set; }
@@ -20,16 +20,16 @@ namespace Congress
         public StringFilter Chamber { get; set; }
 
         [JsonProperty("introduced_on")]
-        public DateTimeFilter IntroducedOn { get; set; }
+        public DateFilter IntroducedOn { get; set; }
 
         [JsonProperty("last_action_at")]
-        public DateTimeFilter LastActionAt { get; set; }
+        public DateFilter LastActionAt { get; set; }
 
         [JsonProperty("last_vote_at")]
-        public DateTimeFilter LastVoteAt { get; set; }
+        public DateFilter LastVoteAt { get; set; }
 
         [JsonProperty("last_version_on")]
-        public DateTimeFilter LastVersionOn { get; set; }
+        public DateFilter LastVersionOn { get; set; }
 
         [JsonProperty("nicknames")]
         public StringFilter Nicknames { get; set; }
@@ -59,37 +59,37 @@ namespace Congress
         public StringFilter RelatedBillIds { get; set; }
 
         [JsonProperty("history")]
-        public HistoryFilter History { get; set; }
+        public History History { get; set; }
 
         [JsonProperty("enacted_as")]
-        public EnactedAsFilter EnactedAs { get; set; }
+        public EnactedAs EnactedAs { get; set; }
     }
 
-    public class HistoryFilter
+    public class History
     {
         [JsonProperty("active")]
         public bool? Active { get; set; }
 
         [JsonProperty("active_at")]
-        public DateTimeFilter ActiveAt { get; set; }
+        public DateFilter ActiveAt { get; set; }
 
         [JsonProperty("house_passage_result")]
         public StringFilter HousePassageResult { get; set; }
 
         [JsonProperty("house_passage_result_at")]
-        public DateTimeFilter HousePassageResultAt { get; set; }
+        public DateFilter HousePassageResultAt { get; set; }
 
         [JsonProperty("senate_cloture_result")]
         public StringFilter SenateClotureResult { get; set; }
 
         [JsonProperty("senate_cloture_result_at")]
-        public DateTimeFilter SenateClotureResultAt { get; set; }
+        public DateFilter SenateClotureResultAt { get; set; }
 
         [JsonProperty("senate_passage_result")]
         public StringFilter SenatePassageResult { get; set; }
 
         [JsonProperty("senate_passage_result_at")]
-        public DateTimeFilter SenatePassageResultAt { get; set; }
+        public DateFilter SenatePassageResultAt { get; set; }
 
         [JsonProperty("vetoed")]
         public bool? Vetoed { get; set; }
@@ -101,10 +101,10 @@ namespace Congress
         public bool? Enacted { get; set; }
 
         [JsonProperty("enacted_at")]
-        public DateTimeFilter EnactedAt { get; set; }
+        public DateFilter EnactedAt { get; set; }
     }
 
-    public class EnactedAsFilter
+    public class EnactedAs
     {
         [JsonProperty("congress")]
         public IntFilter Congress { get; set; }

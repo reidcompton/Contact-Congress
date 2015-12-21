@@ -69,15 +69,13 @@ namespace Congress
         [JsonProperty("voters")]
         public Voters Voters { get; set; }
 
-        public class Filters : VoteFilter { }
-
         public static List<Vote> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.VotesUrl, Settings.Token);
             return Helpers.Get<VoteWrapper>(url).Results;
         }
 
-        public static List<Vote> Filter(Vote.Filters filters)
+        public static List<Vote> Search(FilterBy.Vote filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.VotesUrl, Settings.Token);
             return Helpers.Get<VoteWrapper>(Helpers.QueryString(url, filters)).Results;

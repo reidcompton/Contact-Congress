@@ -50,15 +50,13 @@ namespace Congress
         [JsonProperty("witnesses")]
         public Witness[] Witnesses { get; set; }
 
-        public class Filters : HearingFilters { }
-
         public static List<Hearing> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.HearingsUrl, Settings.Token);
             return Helpers.Get<HearingWrapper>(url).Results;
         }
 
-        public static List<Hearing> Filter(Hearing.Filters filters)
+        public static List<Hearing> Search(FilterBy.Hearing filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.HearingsUrl, Settings.Token);
             return Helpers.Get<HearingWrapper>(Helpers.QueryString(url, filters)).Results;

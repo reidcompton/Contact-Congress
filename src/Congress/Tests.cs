@@ -13,15 +13,15 @@ namespace Congress
             Amendment[] a = Amendment.All().ToArray();
 
             // Amendment Filter
-            Amendment[] b = Amendment.Filter(new Amendment.Filters()
+            Amendment[] b = Amendment.Search(new FilterBy.Amendment()
             {
                 PerPage = 3,
-                AmendmentId = new StringFilter("samdt2921-114", DateTimeFilter.Options.All),
+                AmendmentId = new StringFilter("samdt2921-114", Operator.All),
                 Congress = new IntFilter(114),
                 Number = new IntFilter(2921),
                 Chamber = new StringFilter("senate"),
                 AmendmentType = new StringFilter("samdt"),
-                IntroducedOn = new DateTimeFilter(new DateTime(2015, 12, 7), DateTimeFilter.Options.GreaterThan),
+                IntroducedOn = new DateFilter(new DateTime(2015, 12, 7), Operator.GreaterThan),
                 SponsorType = new StringFilter("person"),
                 SponsorId = new StringFilter("C001070"),
                 AmendsBillId = new StringFilter("sres207-114")
@@ -31,7 +31,7 @@ namespace Congress
             Bill[] c = Bill.All().ToArray();
 
             // Bill Filter
-            Bill[] d = Bill.Filter(new Bill.Filters()
+            Bill[] d = Bill.Search(new FilterBy.Bill()
             {
                 BillId = new StringFilter("hr4193-114"),
                 BillType = new StringFilter("hr"),
@@ -39,14 +39,14 @@ namespace Congress
                 CommitteeIds = new StringFilter("HSII"),
                 Congress = new IntFilter(114),
                 CoSponsorsCount = new IntFilter(0),
-                History = new HistoryFilter()
+                History = new FilterBy.History()
                 {
                     Active = false,
                     AwaitingSignature = false,
                     Enacted = false,
                     Vetoed = false
                 },
-                IntroducedOn = new DateTimeFilter(new DateTime(2015, 12, 8)),
+                IntroducedOn = new DateFilter(new DateTime(2015, 12, 8)),
                 Number = new IntFilter(4193),
                 SponsorId = new StringFilter("Y000033")
             }).ToArray();
@@ -58,7 +58,7 @@ namespace Congress
             Committee[] f = Committee.All().ToArray();
 
             // Committee Filter
-            Committee[] g = Committee.Filter(new Committee.Filters()
+            Committee[] g = Committee.Search(new FilterBy.Committee()
             {
                 Chamber = new StringFilter("senate"),
                 CommitteeId = new StringFilter("SSGA19"),
@@ -70,10 +70,10 @@ namespace Congress
             CongressionalDocument[] h = CongressionalDocument.All().ToArray();
 
             // District Locate by Zip
-            District[] i = District.Locate(60657).ToArray();
+            District[] i = District.Search(60657).ToArray();
 
             // District Locate By Lat/Long
-            District[] j = District.Locate(42.96, -108.09).ToArray();
+            District[] j = District.Search(42.96, -108.09).ToArray();
 
             // Document All
             Document[] k = Document.All().ToArray();
@@ -82,18 +82,18 @@ namespace Congress
             FloorUpdate[] l = FloorUpdate.All().ToArray();
 
             // Floor Update Filter
-            FloorUpdate[] m = FloorUpdate.Filter(new FloorUpdate.Filters()
+            FloorUpdate[] m = FloorUpdate.Search(new FilterBy.FloorUpdate()
             {
                 Chamber = new StringFilter("senate"),
                 Congress = new IntFilter(114),
-                LegislativeDay = new DateTimeFilter(new DateTime(2015, 12, 9))
+                LegislativeDay = new DateFilter(new DateTime(2015, 12, 9))
             }).ToArray();
 
             // Hearing All
             Hearing[] n = Hearing.All().ToArray();
 
             // Hearing Filter 
-            Hearing[] o = Hearing.Filter(new Hearing.Filters()
+            Hearing[] o = Hearing.Search(new FilterBy.Hearing()
             {
                 CommitteeId = new StringFilter("HSSM"),
                 Chamber = new StringFilter("house"),
@@ -106,16 +106,16 @@ namespace Congress
             Legislator[] p = Legislator.All().ToArray();
 
             // Legislator Locate by Zip
-            Legislator[] q = Legislator.Locate(60657).ToArray();
+            Legislator[] q = Legislator.Search(60657).ToArray();
 
             // Legislator Locate by Lat/Long
-            Legislator[] r = Legislator.Locate(42.96, -108.09).ToArray();
+            Legislator[] r = Legislator.Search(42.96, -108.09).ToArray();
 
             // Legislator Filter
-            Legislator[] s = Legislator.Filter(new Legislator.Filters()
+            Legislator[] s = Legislator.Search(new FilterBy.Legislator()
             {
                 BioguideID = new StringFilter("L000585"),
-                Birthday = new DateTimeFilter(new DateTime(1968, 7, 4), DateTimeFilter.Options.GreaterThan),
+                Birthday = new DateFilter(new DateTime(1968, 7, 4), Operator.GreaterThan),
                 Chamber = new StringFilter("house"),
                 CrpId = new StringFilter("N00037031"),
                 District = new IntFilter(18),
@@ -134,26 +134,26 @@ namespace Congress
             Nomination[] t = Nomination.All().ToArray();
 
             // Nomination Filter
-            Nomination[] u = Nomination.Filter(new Nomination.Filters()
+            Nomination[] u = Nomination.Search(new FilterBy.Nomination()
             {
                 NominationId = new StringFilter("PN951-02-114"),
                 Congress = new IntFilter(114),
                 Number = new StringFilter("951-02"),
                 Organization = new StringFilter("Foreign Service"),
                 CommitteeIds = new StringFilter("SSFR"),
-                LastActionAt = new DateTimeFilter(new DateTime(2015, 11, 19))
+                LastActionAt = new DateFilter(new DateTime(2015, 11, 19))
             }).ToArray();
 
             // Upcoming Bill All
             UpcomingBill[] v = UpcomingBill.All().ToArray();
 
             // Upcoming Bill Filter
-            UpcomingBill[] w = UpcomingBill.Filter(new UpcomingBill.Filters()
+            UpcomingBill[] w = UpcomingBill.Search(new FilterBy.UpcomingBill()
             {
                 BillId = new StringFilter("s1177-114"),
                 Chamber = new StringFilter("senate"),
                 Congress = new IntFilter(114),
-                LegislativeDay = new DateTimeFilter(new DateTime(2015, 12, 9)),
+                LegislativeDay = new DateFilter(new DateTime(2015, 12, 9)),
                 Range = new StringFilter("day"),
                 SourceType = new StringFilter("senate_daily")
             }).ToArray();
@@ -162,7 +162,7 @@ namespace Congress
             Vote[] x = Vote.All().ToArray();
 
             // Vote Filter
-            Vote[] y = Vote.Filter(new Vote.Filters()
+            Vote[] y = Vote.Search(new FilterBy.Vote()
             {
                 BillId = new StringFilter("hr2130-114"),
                 Chamber = new StringFilter("house"),
@@ -174,9 +174,15 @@ namespace Congress
             }).ToArray();
 
             // Vote Filter by Breakdown
-            Vote[] z = Vote.Filter(new Vote.Filters()
+            Vote[] z = Vote.Search(new FilterBy.Vote()
             {
-                Breakdown = new BreakdownFilter() { Party = new PartyFilter() { Republican = new TotalFilter() { Yea = new IntFilter(30, Filter.Options.GreaterThan) } } }
+                Breakdown = new FilterBy.Breakdown() {
+                    Party = new FilterBy.Party() {
+                        Republican = new FilterBy.Total() {
+                            Yea = new IntFilter(30, Operator.GreaterThan)
+                        }
+                    }
+                }
             }).ToArray();
 
             string result = string.Format(

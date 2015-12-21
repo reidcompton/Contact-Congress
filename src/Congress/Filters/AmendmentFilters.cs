@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Congress
+namespace Congress.FilterBy
 {
-    public class AmendmentFilters : BasicRequest
+    public class Amendment : BasicRequest
     {
         [JsonProperty("amendment_id")]
         public StringFilter AmendmentId { get; set; }
@@ -38,9 +38,9 @@ namespace Congress
         [JsonProperty("sponsor_id")]
         public StringFilter SponsorId { get; set; }
         [JsonProperty("introduced_on")]
-        public DateTimeFilter IntroducedOn { get; set; }
+        public DateFilter IntroducedOn { get; set; }
 
         [JsonProperty("last_action_at")]
-        public DateTimeFilter LastActionAt { get; set; }
+        public DateFilter LastActionAt { get; set; }
     }
 }

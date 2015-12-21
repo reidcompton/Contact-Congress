@@ -18,13 +18,13 @@ namespace Congress
         public int? DistrictNumber { get; set; }
 
 
-        public static List<District> Locate(int zip)
+        public static List<District> Search(int zip)
         {
             string url = string.Format("{0}?zip={1}&apikey={2}", Settings.DistrictsLocateUrl, zip, Settings.Token);
             return Helpers.Get<DistrictWrapper>(url).Results;
         }
 
-        public static List<District> Locate(double latitude, double longitude)
+        public static List<District> Search(double latitude, double longitude)
         {
             string url = string.Format("{0}?latitude={1}&longitude={2}&apikey={3}", Settings.DistrictsLocateUrl, latitude, longitude, Settings.Token);
             return Helpers.Get<DistrictWrapper>(url).Results;

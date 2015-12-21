@@ -66,15 +66,13 @@ namespace Congress
         [JsonProperty("actions")]
         public Action[] Actions { get; set; }
 
-        public class Filters : AmendmentFilters { }
-
         public static List<Amendment> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.AmendmentsUrl, Settings.Token);
             return Helpers.Get<AmendmentWrapper>(url).Results;
         }
 
-        public static List<Amendment> Filter(Amendment.Filters filters)
+        public static List<Amendment> Search(FilterBy.Amendment filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.AmendmentsUrl, Settings.Token);
             return Helpers.Get<AmendmentWrapper>(Helpers.QueryString(url, filters)).Results;

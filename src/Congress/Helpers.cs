@@ -23,43 +23,48 @@ namespace Congress
         public static string QueryString<T>(string url, T filters)
         {
             var props = filters.GetType().GetProperties();
-            string localUrl = "";
+            List<string> parameters = new List<string>();
             for (int i = 0; i < props.Length; i++)
             {
                 JsonPropertyAttribute key = filters.GetType().GetProperty(props[i].Name).GetCustomAttributes(typeof(JsonPropertyAttribute), false)[0] as JsonPropertyAttribute;
                 var value = filters.GetType().GetProperty(props[i].Name).GetValue(filters, null);
                 if (value != null && !string.IsNullOrEmpty(value.ToString()))
                 {
-                    if (value.GetType().BaseType.Name == "Filter")          // is filter class
-                        localUrl = ExtractPropertiesOnCustomFilters(key.PropertyName, value);
+                    List<string> subParameters = new List<string>();
+                    if (value.GetType().BaseType.Name == "Filter`1")          // is filter class
+                        subParameters.Add(ExtractPropertiesOnCustomFilters(key.PropertyName, value));
                     else if (IsCustomClass(value))                          // is custom class 
-                        localUrl = ExtractPropertiesOnObjects(key.PropertyName, value);
+                        subParameters.Add(ExtractPropertiesOnObjects(key.PropertyName, value));
                     else                                                    // is normal system class
-                        localUrl = string.Format("{0}={1}", key.PropertyName, Helpers.ConvertToSafeString(value));
+                        subParameters.Add(string.Format("{0}={1}", key.PropertyName, Helpers.ConvertToSafeString(value)));
+                    parameters.Add(string.Format("&{0}", string.Join("&", subParameters)));
                 }
             }
-            return url += string.Format("&{0}", localUrl);
+            return url += string.Format("&{0}", string.Join("&", parameters));            
         }
 
         public static string ExtractPropertiesOnObjects<T>(string originalKey, T value)
         {
             var props = value.GetType().GetProperties();
+            List<string> keys = new List<string>();
             for (int i = 0; i < props.Length; i++)
             {
-                JsonPropertyAttribute key = value.GetType().GetProperty(props[i].Name).GetCustomAttributes(typeof(JsonPropertyAttribute), false)[0] as JsonPropertyAttribute;
+                JsonPropertyAttribute singleKey = value.GetType().GetProperty(props[i].Name).GetCustomAttributes(typeof(JsonPropertyAttribute), false)[0] as JsonPropertyAttribute;
                 var subValue = value.GetType().GetProperty(props[i].Name).GetValue(value, null);
+                List<string> subKeys = new List<string>();
                 if (subValue != null && !string.IsNullOrEmpty(subValue.ToString()))
                 {
-                    originalKey = string.Format("{0}.{1}", originalKey, key.PropertyName);
-                    if (subValue.GetType().BaseType.Name == "Filter")                                   // is filter class
-                        originalKey = ExtractPropertiesOnCustomFilters(originalKey, subValue);
+                    string singleSubKey = string.Format("{0}.{1}", originalKey, singleKey.PropertyName);
+                    if (subValue.GetType().BaseType.Name == "Filter`1")                                   // is filter class
+                        subKeys.Add(ExtractPropertiesOnCustomFilters(singleSubKey, subValue));
                     else if (IsCustomClass(subValue))                                                   // is custom class
-                        originalKey = ExtractPropertiesOnObjects(originalKey, subValue);      
+                        subKeys.Add(ExtractPropertiesOnObjects(singleSubKey, subValue));      
                     else                                                                                // is sytem class
-                        originalKey = string.Format("{0}={1}&", originalKey, Helpers.ConvertToSafeString(subValue));
+                        subKeys.Add(string.Format("{0}={1}&", singleSubKey, Helpers.ConvertToSafeString(subValue)));
+                    keys.Add(string.Join("&", subKeys));
                 }
             }
-            return originalKey;
+            return string.Join("&", keys);
         }
 
         public static string ExtractPropertiesOnCustomFilters(string originalKey, object value)
@@ -98,9 +103,9 @@ namespace Congress
                         originalKey += ConvertToSafeString(castVal.Values[0]);
                 }
             }
-            else if (value.GetType() == typeof(DateTimeFilter))
+            else if (value.GetType() == typeof(DateFilter))
             {
-                DateTimeFilter castVal = value as DateTimeFilter;
+                DateFilter castVal = value as DateFilter;
                 if (castVal.Values != null)
                 {
                     if (castVal.GreaterThan == true)

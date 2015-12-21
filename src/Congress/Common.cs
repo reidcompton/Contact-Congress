@@ -40,9 +40,25 @@ namespace Congress
         [JsonProperty("count")]
         public int? Count { get; set; }
     }
-   
-    public class Filter
+
+    public enum Operator
     {
+        GreaterThan,
+        GreaterThanOrEquals,
+        LessThan,
+        LessThanOrEquals,
+        Not,
+        All,
+        In,
+        NotIn,
+        Exists,
+        NotExists
+    }
+
+    public class Filter<T>
+    {
+
+        public T[] Values { get; set; }
         public bool? GreaterThan { get; set; }
         public bool? GreaterThanOrEquals { get; set; }
         public bool? LessThan { get; set; }
@@ -52,242 +68,221 @@ namespace Congress
         public bool? In { get; set; }
         public bool? NotIn { get; set; }
         public bool? Exists { get; set; }
-
-        public enum Options
-        {
-            GreaterThan,
-            GreaterThanOrEquals,
-            LessThan,
-            LessThanOrEquals,
-            Not,
-            All,
-            In,
-            NotIn,
-            Exists,
-            NotExists
-        }
     }
 
-    public class DateTimeFilter : Filter
+    public class DateFilter : Filter<DateTime>
     {
-        public DateTimeFilter(DateTime value) { Values = new DateTime[] { new DateTime(value.Ticks) }; }
-        public DateTimeFilter(DateTime[] values) { Values = values; }
-        public DateTimeFilter(DateTime value, Options modifier)
+        public DateFilter(DateTime value) { Values = new DateTime[] { new DateTime(value.Ticks) }; }
+        public DateFilter(DateTime[] values) { Values = values; }
+        public DateFilter(DateTime value, Operator @operator)
         {
             Values = new DateTime[] { new DateTime(value.Ticks) };
-            switch (modifier)
+            switch (@operator)
             {
-                case Options.GreaterThan:
+                case Operator.GreaterThan:
                     GreaterThan = true;
                     break;
-                case Options.GreaterThanOrEquals:
+                case Operator.GreaterThanOrEquals:
                     GreaterThanOrEquals = true;
                     break;
-                case Options.LessThan:
+                case Operator.LessThan:
                     LessThan = true;
                     break;
-                case Options.LessThanOrEquals:
+                case Operator.LessThanOrEquals:
                     LessThanOrEquals = true;
                     break;
-                case Options.Not:
+                case Operator.Not:
                     Not = true;
                     break;
-                case Options.All:
+                case Operator.All:
                     All = true;
                     break;
-                case Options.In:
+                case Operator.In:
                     In = true;
                     break;
-                case Options.NotIn:
+                case Operator.NotIn:
                     NotIn = true;
                     break;
-                case Options.Exists:
+                case Operator.Exists:
                     Exists = true;
                     break;
-                case Options.NotExists:
+                case Operator.NotExists:
                     Exists = false;
                     break;
             }
         }
-        public DateTimeFilter(DateTime[] values, Options modifier)
+        public DateFilter(DateTime[] values, Operator @operator)
         {
             Values = values;
-            switch(modifier)
+            switch(@operator)
             {
-                case Options.GreaterThan:
+                case Operator.GreaterThan:
                     GreaterThan = true;
                     break;
-                case Options.GreaterThanOrEquals:
+                case Operator.GreaterThanOrEquals:
                     GreaterThanOrEquals = true;
                     break;
-                case Options.LessThan:
+                case Operator.LessThan:
                     LessThan = true;
                     break;
-                case Options.LessThanOrEquals:
+                case Operator.LessThanOrEquals:
                     LessThanOrEquals = true;
                     break;
-                case Options.Not:
+                case Operator.Not:
                     Not = true;
                     break;
-                case Options.All:
+                case Operator.All:
                     All = true;
                     break;
-                case Options.In:
+                case Operator.In:
                     In = true;
                     break;
-                case Options.NotIn:
+                case Operator.NotIn:
                     NotIn = true;
                     break;
-                case Options.Exists:
+                case Operator.Exists:
                     Exists = true;
                     break;
-                case Options.NotExists:
+                case Operator.NotExists:
                     Exists = false;
                     break;
             }
         }
-
-        public DateTime[] Values { get; set; }
     }
 
-    public class IntFilter : Filter
+    public class IntFilter : Filter<int>
     {
         public IntFilter(int value) { Values = new int[] { value }; }
         public IntFilter(int[] values) { Values = values; }
-        public IntFilter(int value, Options modifier)
+        public IntFilter(int value, Operator @operator)
         {
             Values = new int[] { value };
-            switch (modifier)
+            switch (@operator)
             {
-                case Options.GreaterThan:
+                case Operator.GreaterThan:
                     GreaterThan = true;
                     break;
-                case Options.GreaterThanOrEquals:
+                case Operator.GreaterThanOrEquals:
                     GreaterThanOrEquals = true;
                     break;
-                case Options.LessThan:
+                case Operator.LessThan:
                     LessThan = true;
                     break;
-                case Options.LessThanOrEquals:
+                case Operator.LessThanOrEquals:
                     LessThanOrEquals = true;
                     break;
-                case Options.Not:
+                case Operator.Not:
                     Not = true;
                     break;
-                case Options.All:
+                case Operator.All:
                     All = true;
                     break;
-                case Options.In:
+                case Operator.In:
                     In = true;
                     break;
-                case Options.NotIn:
+                case Operator.NotIn:
                     NotIn = true;
                     break;
-                case Options.Exists:
+                case Operator.Exists:
                     Exists = true;
                     break;
-                case Options.NotExists:
+                case Operator.NotExists:
                     Exists = false;
                     break;
             }
         }
-        public IntFilter(int[] values, Options modifier)
+        public IntFilter(int[] values, Operator @operator)
         {
             Values = values;
-            switch (modifier)
+            switch (@operator)
             {
-                case Options.GreaterThan:
+                case Operator.GreaterThan:
                     GreaterThan = true;
                     break;
-                case Options.GreaterThanOrEquals:
+                case Operator.GreaterThanOrEquals:
                     GreaterThanOrEquals = true;
                     break;
-                case Options.LessThan:
+                case Operator.LessThan:
                     LessThan = true;
                     break;
-                case Options.LessThanOrEquals:
+                case Operator.LessThanOrEquals:
                     LessThanOrEquals = true;
                     break;
-                case Options.Not:
+                case Operator.Not:
                     Not = true;
                     break;
-                case Options.All:
+                case Operator.All:
                     All = true;
                     break;
-                case Options.In:
+                case Operator.In:
                     In = true;
                     break;
-                case Options.NotIn:
+                case Operator.NotIn:
                     NotIn = true;
                     break;
-                case Options.Exists:
+                case Operator.Exists:
                     Exists = true;
                     break;
-                case Options.NotExists:
+                case Operator.NotExists:
                     Exists = false;
                     break;
             }
-        }
-
-        public int[] Values { get; set; }
-        
+        }        
     }
 
-    public class StringFilter : Filter
+    public class StringFilter : Filter<string>
     {
         public StringFilter(string value) { Values = new string[] { value }; }
         public StringFilter(string[] values) { Values = values; }
-        public StringFilter(string value, Options modifier)
+        public StringFilter(string value, Operator @operator)
         {
             Values = new string[] { value };
-            switch (modifier)
+            switch (@operator)
             {
-                case Options.Not:
+                case Operator.Not:
                     Not = true;
                     break;
-                case Options.All:
+                case Operator.All:
                     All = true;
                     break;
-                case Options.In:
+                case Operator.In:
                     In = true;
                     break;
-                case Options.NotIn:
+                case Operator.NotIn:
                     NotIn = true;
                     break;
-                case Options.Exists:
+                case Operator.Exists:
                     Exists = true;
                     break;
-                case Options.NotExists:
+                case Operator.NotExists:
                     Exists = false;
                     break;
             }
         }
-        public StringFilter(string[] values, Options modifier)
+        public StringFilter(string[] values, Operator @operator)
         {
             Values = values;
-            switch (modifier)
+            switch (@operator)
             {
-                case Options.Not:
+                case Operator.Not:
                     Not = true;
                     break;
-                case Options.All:
+                case Operator.All:
                     All = true;
                     break;
-                case Options.In:
+                case Operator.In:
                     In = true;
                     break;
-                case Options.NotIn:
+                case Operator.NotIn:
                     NotIn = true;
                     break;
-                case Options.Exists:
+                case Operator.Exists:
                     Exists = true;
                     break;
-                case Options.NotExists:
+                case Operator.NotExists:
                     Exists = false;
                     break;
             }
         }
-
-        public string[] Values { get; set; }
     }
 }

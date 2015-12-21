@@ -39,15 +39,13 @@ namespace Congress
         [JsonProperty("update")]
         public string Update { get; set; }
 
-        public class Filters : FloorUpdateFilters { }
-
         public static List<FloorUpdate> All()
         {
             string url = string.Format("{0}?apikey={1}", Settings.FloorUpdatesUrl, Settings.Token);
             return Helpers.Get<FloorUpdateWrapper>(url).Results;
         }
 
-        public static List<FloorUpdate> Filter(FloorUpdate.Filters filters)
+        public static List<FloorUpdate> Search(FilterBy.FloorUpdate filters)
         {
             string url = string.Format("{0}?apikey={1}", Settings.FloorUpdatesUrl, Settings.Token);
             return Helpers.Get<FloorUpdateWrapper>(Helpers.QueryString(url, filters)).Results;
