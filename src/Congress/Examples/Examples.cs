@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Congress
 {
@@ -9,6 +8,10 @@ namespace Congress
     {
         public static string RunTests()
         {
+            Client client = new Client("d50b80bc9cfe43be821059b6470e4ab9");
+
+            Amendment[] ab = client.Amendments(new FilterBy.Amendment{ SponsorId = new StringFilter("")});
+
             // Amendment All
             Amendment[] a = Amendment.All().ToArray();
 
@@ -128,6 +131,10 @@ namespace Congress
                 Party = new StringFilter("R"),
                 State = new StringFilter("IL"),
                 VoteSmartId = new IntFilter(128760)
+            }).ToArray();
+
+            Bill[] bills = Bill.Search(new FilterBy.Bill() {
+                SponsorId = new StringFilter(s[0].BioguideID)
             }).ToArray();
 
             // Nomination All

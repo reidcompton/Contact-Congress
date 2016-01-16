@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Congress")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SunlightCongressC#")]
+[assembly: AssemblyDescription(".NET Library Wrapper for Sunlight Congress API")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Congress")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("Reid Compton")]
+[assembly: AssemblyProduct("SunlightCongressC#")]
+[assembly: AssemblyCopyright("Copyright © Reid Compton  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,4 +20,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c9efb9ae-9fda-4615-a7b4-a7bfd414e5b3")]
+[assembly: Guid("56463940-6c69-49a5-8985-c1219fa16e79")]
