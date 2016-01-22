@@ -8,189 +8,171 @@ namespace Congress
     {
         public static string RunTests()
         {
-            Client client = new Client("d50b80bc9cfe43be821059b6470e4ab9");
 
-            Amendment[] ab = client.Amendments(new FilterBy.Amendment{ SponsorId = new StringFilter("")});
+            Client client = new Client("d50b80bc9cfe43be821059b6470e4ab9");
+            //Amendment[] s = client.Amendments.Where(x => x.IntroducedOn > DateTime.Today.AddDays(-10) && x.AmendmentId == "samdt2952-114" && x.Number == 2952).ToArray();
+
 
             // Amendment All
             Amendment[] a = Amendment.All().ToArray();
 
             // Amendment Filter
-            Amendment[] b = Amendment.Search(new FilterBy.Amendment()
-            {
-                PerPage = 3,
-                AmendmentId = new StringFilter("samdt2921-114", Operator.All),
-                Congress = new IntFilter(114),
-                Number = new IntFilter(2921),
-                Chamber = new StringFilter("senate"),
-                AmendmentType = new StringFilter("samdt"),
-                IntroducedOn = new DateFilter(new DateTime(2015, 12, 7), Operator.GreaterThan),
-                SponsorType = new StringFilter("person"),
-                SponsorId = new StringFilter("C001070"),
-                AmendsBillId = new StringFilter("sres207-114")
-            }).ToArray();
+            Amendment[] b = client.Amendments.Where(x =>
+                                x.PerPage == 3 &&
+                                x.AmendmentId == "samdt2921-114" &&
+                                x.Congress == 114 &&
+                                x.Number == 2921 &&
+                                x.Chamber == "senate" &&
+                                x.AmendmentType == "samdt" &&
+                                x.IntroducedOn > new DateTime(2015, 12, 7) &&
+                                x.SponsorType == "person" &&
+                                x.SponsorId == "C001070" &&
+                                x.AmendsBillId == "sres207-114"
+                            ).ToArray();
 
-            // Bill All
+            //// Bill All
             Bill[] c = Bill.All().ToArray();
 
-            // Bill Filter
-            Bill[] d = Bill.Search(new FilterBy.Bill()
-            {
-                BillId = new StringFilter("hr4193-114"),
-                BillType = new StringFilter("hr"),
-                Chamber = new StringFilter("house"),
-                CommitteeIds = new StringFilter("HSII"),
-                Congress = new IntFilter(114),
-                CoSponsorsCount = new IntFilter(0),
-                History = new FilterBy.History()
-                {
-                    Active = false,
-                    AwaitingSignature = false,
-                    Enacted = false,
-                    Vetoed = false
-                },
-                IntroducedOn = new DateFilter(new DateTime(2015, 12, 8)),
-                Number = new IntFilter(4193),
-                SponsorId = new StringFilter("Y000033")
-            }).ToArray();
+            //// Bill Filter
+            Bill[] d = client.Bills.Where(x =>
+                        x.BillId == "hr4193-114" &&
+                        x.BillType == "hr" &&
+                        x.Chamber == "house" &&
+                        x.CommitteeIds == "HSII" &&
+                        x.Congress == 114 &&
+                        x.CoSponsorsCount == 0 &&
+                        x.History.Active == false &&
+                        x.History.AwaitingSignature == false &&
+                        x.History.Enacted == false &&
+                        x.History.Vetoed == false &&
+                        x.IntroducedOn == new DateTime(2015, 12, 8) &&
+                        x.Number == 4193 &&
+                        x.SponsorId == "Y000033"
+                    ).ToArray();
 
-            // Bill Search
-            Bill[] e = Bill.Search("To authorize the expansion of an existing hydroelectric project.").ToArray();
+            History[] d1 = client.Bills.Where(x => x.SponsorId == "Y000033").Select(x => x.History).ToArray();
 
-            // Committee All
+            //// Bill Search
+            //Bill[] e = Bill.Search("To authorize the expansion of an existing hydroelectric project.").ToArray();
+
+            //// Committee All
             Committee[] f = Committee.All().ToArray();
 
-            // Committee Filter
-            Committee[] g = Committee.Search(new FilterBy.Committee()
-            {
-                Chamber = new StringFilter("senate"),
-                CommitteeId = new StringFilter("SSGA19"),
-                ParentCommitteeId = new StringFilter("SSGA"),
-                SubCommittee = true
-            }).ToArray();
+            //// Committee Filter
+            Committee[] g = client.Committees.Where(x =>
+                x.Chamber == "senate" &&
+                x.CommitteeId == "SSGA19" &&
+                x.ParentCommitteeId == "SSGA" &&
+                x.SubCommittee == true
+            ).ToArray();
 
-            // Congressional Document All
+            //// Congressional Document All
             CongressionalDocument[] h = CongressionalDocument.All().ToArray();
 
-            // District Locate by Zip
-            District[] i = District.Search(60657).ToArray();
+            //// District Locate by Zip
+            //District[] i = District.Search(60657).ToArray();
 
-            // District Locate By Lat/Long
-            District[] j = District.Search(42.96, -108.09).ToArray();
+            //// District Locate By Lat/Long
+            //District[] j = District.Search(42.96, -108.09).ToArray();
 
-            // Document All
+            //// Document All
             Document[] k = Document.All().ToArray();
 
-            // Floor Update All
+            //// Floor Update All
             FloorUpdate[] l = FloorUpdate.All().ToArray();
 
-            // Floor Update Filter
-            FloorUpdate[] m = FloorUpdate.Search(new FilterBy.FloorUpdate()
-            {
-                Chamber = new StringFilter("senate"),
-                Congress = new IntFilter(114),
-                LegislativeDay = new DateFilter(new DateTime(2015, 12, 9))
-            }).ToArray();
+            //// Floor Update Filter
+            FloorUpdate[] m = client.FloorUpdates.Where(x =>
+                x.Chamber == "senate" &&
+                x.Congress == 114 &&
+                x.LegislativeDay == new DateTime(2015, 12, 9)
+            ).ToArray();
 
-            // Hearing All
+            //// Hearing All
             Hearing[] n = Hearing.All().ToArray();
 
-            // Hearing Filter 
-            Hearing[] o = Hearing.Search(new FilterBy.Hearing()
-            {
-                CommitteeId = new StringFilter("HSSM"),
-                Chamber = new StringFilter("house"),
-                Dc = true,
-                Congress = new IntFilter(114),
-                HearingType = new StringFilter("Hearing")
-            }).ToArray();
+            //// Hearing Filter 
+            Hearing[] o = client.Hearings.Where(x =>
+                x.CommitteeId == "HSSM" && 
+                x.Chamber == "house" &&
+                x.Dc == true &&
+                x.Congress == 114 &&
+                x.HearingType == "Hearing"
+            ).ToArray();
 
-            // Legislator All
+            //// Legislator All
             Legislator[] p = Legislator.All().ToArray();
 
-            // Legislator Locate by Zip
-            Legislator[] q = Legislator.Search(60657).ToArray();
+            //// Legislator Locate by Zip
+            //Legislator[] q = Legislator.Search(60657).ToArray();
 
-            // Legislator Locate by Lat/Long
-            Legislator[] r = Legislator.Search(42.96, -108.09).ToArray();
+            //// Legislator Locate by Lat/Long
+            //Legislator[] r = Legislator.Search(42.96, -108.09).ToArray();
 
-            // Legislator Filter
-            Legislator[] s = Legislator.Search(new FilterBy.Legislator()
-            {
-                BioguideID = new StringFilter("L000585"),
-                Birthday = new DateFilter(new DateTime(1968, 7, 4), Operator.GreaterThan),
-                Chamber = new StringFilter("house"),
-                CrpId = new StringFilter("N00037031"),
-                District = new IntFilter(18),
-                FecIds = new StringFilter(new string[] { "H6IL18088" }),
-                FirstName = new StringFilter("Darin"),
-                Gender = new StringFilter("M"),
-                GovTrackId = new StringFilter("412674"),
-                InOffice = true,
-                LastName = new StringFilter("LaHood"),
-                Party = new StringFilter("R"),
-                State = new StringFilter("IL"),
-                VoteSmartId = new IntFilter(128760)
-            }).ToArray();
+            //// Legislator Filter
+            //Legislator[] s = client.Legislators.Where(x =>
+            //    x.BioguideID == "L000585"&&
+            //    x.Birthday > new DateTime(1968, 7, 4) &&
+            //    x.Chamber == "house"&&
+            //    x.CrpId == "N00037031"&&
+            //    x.District == 18&&
+            //    x.FecIds == new string[] { "H6IL18088" } &&
+            //    x.FirstName == "Darin"&&
+            //    x.Gender == "M"&&
+            //    x.GovTrackId == "412674"&&
+            //    x.InOffice == true &&
+            //    x.LastName == "LaHood"&&
+            //    x.Party ==  "R"&&
+            //    x.State == "IL"&&
+            //    x.VoteSmartId == 128760
+            //).ToArray();
 
-            Bill[] bills = Bill.Search(new FilterBy.Bill() {
-                SponsorId = new StringFilter(s[0].BioguideID)
-            }).ToArray();
+            //Bill[] bills = Bill.Search(new FilterBy.Bill() {
+            //    SponsorId = new StringFilter(s[0].BioguideID)
+            //}).ToArray();
 
-            // Nomination All
+            //// Nomination All
             Nomination[] t = Nomination.All().ToArray();
 
             // Nomination Filter
-            Nomination[] u = Nomination.Search(new FilterBy.Nomination()
-            {
-                NominationId = new StringFilter("PN951-02-114"),
-                Congress = new IntFilter(114),
-                Number = new StringFilter("951-02"),
-                Organization = new StringFilter("Foreign Service"),
-                CommitteeIds = new StringFilter("SSFR"),
-                LastActionAt = new DateFilter(new DateTime(2015, 11, 19))
-            }).ToArray();
+            Nomination[] u = client.Nominations.Where(xy =>
+                xy.NominationId == "PN951-02-114" &&
+                xy.Congress == 114 &&
+                xy.Number == "951-02" &&
+                xy.Organization == "Foreign Service" &&
+                xy.CommitteeIds == "SSFR" &&
+                xy.LastActionAt == new DateTime(2015, 11, 19)
+            ).ToArray();
 
-            // Upcoming Bill All
+            //// Upcoming Bill All
             UpcomingBill[] v = UpcomingBill.All().ToArray();
 
-            // Upcoming Bill Filter
-            UpcomingBill[] w = UpcomingBill.Search(new FilterBy.UpcomingBill()
-            {
-                BillId = new StringFilter("s1177-114"),
-                Chamber = new StringFilter("senate"),
-                Congress = new IntFilter(114),
-                LegislativeDay = new DateFilter(new DateTime(2015, 12, 9)),
-                Range = new StringFilter("day"),
-                SourceType = new StringFilter("senate_daily")
-            }).ToArray();
+            //// Upcoming Bill Filter
+            UpcomingBill[] w = client.UpcomingBills.Where(xy =>
+                xy.BillId == "s1177-114" &&
+                xy.Chamber == "senate" &&
+                xy.Congress == 114 &&
+                xy.LegislativeDay == new DateTime(2015, 12, 9) &&
+                xy.Range == "day" &&
+                xy.SourceType == "senate_daily"
+            ).ToArray();
 
-            // Vote All
-            Vote[] x = Vote.All().ToArray();
+            //// Vote All
+            Vote[] xyz = Vote.All().ToArray();
 
-            // Vote Filter
-            Vote[] y = Vote.Search(new FilterBy.Vote()
-            {
-                BillId = new StringFilter("hr2130-114"),
-                Chamber = new StringFilter("house"),
-                Congress = new IntFilter(114),
-                Number = new IntFilter(684),
-                Required = new StringFilter("1/2"),
-                RollId = new StringFilter("h684-2015"),
-                VoteType = new StringFilter("amendment")
-            }).ToArray();
+            //// Vote Filter
+            Vote[] y = client.Votes.Where(xy =>
+                        xy.BillId == "hr2130-114" &&
+                        xy.Chamber == "house" &&
+                        xy.Congress == 114 &&
+                        xy.Number == 684 &&
+                        xy.Required == "1/2" &&
+                        xy.RollId == "h684-2015" &&
+                        xy.VoteType == "amendment"
+                    ).ToArray();
 
             // Vote Filter by Breakdown
-            Vote[] z = Vote.Search(new FilterBy.Vote()
-            {
-                Breakdown = new FilterBy.Breakdown() {
-                    Party = new FilterBy.Party() {
-                        Republican = new FilterBy.Total() {
-                            Yea = new IntFilter(30, Operator.GreaterThan)
-                        }
-                    }
-                }
-            }).ToArray();
+            Vote[] z = client.Votes.Where(xy => xy.Breakdown.Party.Republican.Yea > 30).ToArray();
 
             string result = string.Format(
                 "a: {0}</p><p> b: {1}</p><p> c: {2}</p><p> d: {3}</p><p> e: {4}</p><p> f: {5}</p><p> g: {6}</p><p> h: {7}</p><p> i: {8}</p><p> j: {9}</p><p> k: {10}</p><p> l: {11}</p><p> m: {12}</p><p> n: {13}</p><p> o: {14}</p><p> p: {15}</p><p> q: {16}</p><p> r: {17}</p><p> s: {18}</p><p> t: {19}</p><p> u: {20}</p><p> v: {21}</p><p> w: {22}</p><p> x: {23}</p><p> y: {24} </p><p> z: {25}",
@@ -198,26 +180,26 @@ namespace Congress
                 b.Length > 0,
                 c.Length > 0,
                 d.Length > 0,
-                e.Length > 0,
+                //e.Length > 0,
                 f.Length > 0,
                 g.Length > 0,
                 h.Length > 0,
-                i.Length > 0,
-                j.Length > 0,
+                //i.Length > 0,
+                //j.Length > 0,
                 k.Length > 0,
                 l.Length > 0,
                 m.Length > 0,
                 n.Length > 0,
                 o.Length > 0,
                 p.Length > 0,
-                q.Length > 0,
-                r.Length > 0,
-                s.Length > 0,
+                //q.Length > 0,
+                //r.Length > 0,
+                //s.Length > 0,
                 t.Length > 0,
                 u.Length > 0,
                 v.Length > 0,
                 w.Length > 0,
-                x.Length > 0,
+                xyz.Length > 0,
                 y.Length > 0,
                 z.Length > 0
             );

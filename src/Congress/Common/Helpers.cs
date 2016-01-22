@@ -10,13 +10,13 @@ namespace Congress
     internal class Helpers
     {
 
-        internal static T Get<T>(string url)
+        internal static SunlightResponse<T> Get<T>(string url)
         {
             using (WebClient client = new WebClient())
             {
                 client.BaseAddress = url;
                 string response = client.DownloadString(client.BaseAddress);
-                return JsonConvert.DeserializeObject<T>(response);
+                return JsonConvert.DeserializeObject<SunlightResponse<T>>(response);
             }
         }
 
