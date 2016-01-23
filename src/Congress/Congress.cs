@@ -14,7 +14,7 @@ namespace Congress
             _apiKey = apiKey;
         }
 
-        public Amendments Amendments { get; set; }
+        public Amendments Amendments { get; }
         public Bills Bills{ get; set; }
         public Committees Committees { get; set; }
         public FloorUpdates FloorUpdates { get; set; }

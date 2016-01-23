@@ -45,13 +45,23 @@ namespace Congress
                 var constant = methodCall.Arguments.FirstOrDefault(x => x.NodeType == ExpressionType.Constant) as ConstantExpression;
                 string path = string.Empty;
                 if (constant.Value.GetType() == typeof(Amendments))
-                {
                     path = "amendments";
-                }
-                else if (true)
-                {
-                    //TODO: Handle other types!
-                }
+                else if (constant.Value.GetType() == typeof(Bills))
+                    path = "bills";
+                else if (constant.Value.GetType() == typeof(Committees))
+                    path = "committees";
+                else if (constant.Value.GetType() == typeof(FloorUpdates))
+                    path = "floorupdates";
+                else if (constant.Value.GetType() == typeof(Hearings))
+                    path = "hearings";
+                else if (constant.Value.GetType() == typeof(Legislators))
+                    path = "legislators";
+                else if (constant.Value.GetType() == typeof(Nominations))
+                    path = "nominations";
+                else if (constant.Value.GetType() == typeof(UpcomingBills))
+                    path = "upcomingbills";
+                else if (constant.Value.GetType() == typeof(Votes))
+                    path = "votes";
                 client.BaseAddress = string.Format("https://congress.api.sunlightfoundation.com/{2}?apikey={0}&{1}", _apiKey, operation, path);
                 response = client.DownloadString(client.BaseAddress);
 

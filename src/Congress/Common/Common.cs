@@ -10,7 +10,6 @@ namespace Congress
     {
         [JsonProperty("results")]
         public T Results { get; set; }
-        public List<T> ListResults { get; set; }
         [JsonProperty("coLnt")]
         public int? Count { get; set; }
         [JsonProperty("page")]
