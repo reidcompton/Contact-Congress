@@ -6,6 +6,12 @@ using Newtonsoft.Json;
 
 namespace Congress
 {
+    public class BasicResponse<T>
+    {
+        [JsonProperty("results")]
+        public T Results { get; set; }
+    }
+
     internal class SunlightResponse<T>
     {
         [JsonProperty("results")]

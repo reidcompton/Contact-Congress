@@ -46,12 +46,14 @@ namespace Congress
                 string path = string.Empty;
                 if (constant.Value.GetType() == typeof(Amendments))
                     path = "amendments";
+                else if (constant.Value.GetType() == typeof(Bills) && operation.Contains("query"))
+                    path = "bills/search";
                 else if (constant.Value.GetType() == typeof(Bills))
                     path = "bills";
                 else if (constant.Value.GetType() == typeof(Committees))
                     path = "committees";
                 else if (constant.Value.GetType() == typeof(FloorUpdates))
-                    path = "floorupdates";
+                    path = "floor_updates";
                 else if (constant.Value.GetType() == typeof(Hearings))
                     path = "hearings";
                 else if (constant.Value.GetType() == typeof(Legislators))
@@ -59,7 +61,7 @@ namespace Congress
                 else if (constant.Value.GetType() == typeof(Nominations))
                     path = "nominations";
                 else if (constant.Value.GetType() == typeof(UpcomingBills))
-                    path = "upcomingbills";
+                    path = "upcoming_bills";
                 else if (constant.Value.GetType() == typeof(Votes))
                     path = "votes";
                 client.BaseAddress = string.Format("https://congress.api.sunlightfoundation.com/{2}?apikey={0}&{1}", _apiKey, operation, path);
@@ -123,15 +125,34 @@ namespace Congress
                 else if (rightValue as bool? != null)
                 {
                     bool? newValue = rightValue as bool?;
-                    return newValue.Value.ToString();
+                    return newValue.Value.ToString().ToLower();
                 }
             }
             else if (type == "String")
             {
                 string newValue = rightValue as string;
-                return newValue;
+                return string.Format("%22{0}%22", newValue);
             }
-            return rightValue.ToString();
+            return rightValue.ToString().ToLower();
+        }
+
+        private static StringBuilder ExtractJsonProperties(StringBuilder operation, MemberExpression item1 = null)
+        {
+            if (item1.Expression.GetType().Name == "PropertyExpression")
+            {
+                MemberExpression expression = item1.Expression as MemberExpression;
+                ExtractJsonProperties(operation, expression);
+                operation.Append(".");
+            }
+            var attr = item1.Member.GetCustomAttributes(true).ToDictionary(a => a.GetType().Name, a => a);
+            if (attr.Keys.Contains("JsonPropertyAttribute"))
+            {
+                JsonPropertyAttribute attribute = attr["JsonPropertyAttribute"] as JsonPropertyAttribute;
+                operation.Append(attribute.PropertyName);
+            }
+            else
+                operation.Append(item1.Member.Name);
+            return operation;
         }
 
         private static string ExpressionConverter<T>(MethodCallExpression methodCall)
@@ -162,14 +183,15 @@ namespace Congress
 
 
                     //Pull the JsonProperty off of the class and use that for serialization.
-                    var attr = item.Item1.Member.GetCustomAttributes(true).ToDictionary(a => a.GetType().Name, a => a);
-                    if (attr.Keys.Contains("JsonPropertyAttribute"))
-                    {
-                        JsonPropertyAttribute attribute = attr["JsonPropertyAttribute"] as JsonPropertyAttribute;
-                        operation.Append(attribute.PropertyName);
-                    }
-                    else
-                        operation.Append(item.Item1.Member.Name);
+                    ExtractJsonProperties(operation, item.Item1);
+                    //var attr = item.Item1.Member.GetCustomAttributes(true).ToDictionary(a => a.GetType().Name, a => a);
+                    //if (attr.Keys.Contains("JsonPropertyAttribute"))
+                    //{
+                    //    JsonPropertyAttribute attribute = attr["JsonPropertyAttribute"] as JsonPropertyAttribute;
+                    //    operation.Append(attribute.PropertyName);
+                    //}
+                    //else
+                    //    operation.Append(item.Item1.Member.Name);
 
                     //TODO: Add in, nin, all exists, !exists
                     //https://sunlightlabs.github.io/congress/#operators
@@ -182,7 +204,7 @@ namespace Congress
                     if (item.Item3.NodeType == ExpressionType.LessThanOrEqual)
                         operation.Append("__lte");
                     if (item.Item3.NodeType == ExpressionType.NotEqual)
-                        operation.Append("!");
+                        operation.Append("__not");
 
 
                         operation.AppendFormat("={0}{1}", FormatRightValueAsString(rightValue, type), item == membersAndUnarysAndBinarys.Last() ? "" : "&");
@@ -256,6 +278,7 @@ namespace Congress
         public IEnumerator<T> GetEnumerator()
         {
             return (Provider.Execute<IEnumerable<T>>(Expression)).GetEnumerator();
+            
         }
 
         IEnumerator IEnumerable.GetEnumerator()
