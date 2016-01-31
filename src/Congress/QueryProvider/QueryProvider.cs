@@ -24,7 +24,7 @@ namespace Congress
 
         public IQueryable<TElement> CreateQuery<TElement>(Expression expression)
         {
-
+            // possibly implement a switch statement here to detect class and swap in return class
             //return new Amendments()
             return new SunlightData<TElement>(_apiKey, expression);
         }
@@ -66,10 +66,23 @@ namespace Congress
                     path = "votes";
                 client.BaseAddress = string.Format("https://congress.api.sunlightfoundation.com/{2}?apikey={0}&{1}", _apiKey, operation, path);
                 response = client.DownloadString(client.BaseAddress);
-
-                // handle .Any() and other return typed calls
                 var typedResult = JsonConvert.DeserializeObject<SunlightResponse<TResult>>(response);
-                return typedResult.Results;
+                // TODO handle .Any() and other return typed calls
+                switch (methodCall.Method.Name)
+                {
+                    case "Where":
+                        return typedResult.Results;
+                    case "Single":
+                        return typedResult.Results;
+                    //return typedResult.Results.ToString().Single();
+                    case "Any":
+                        return typedResult.Results;
+                    //return typedResult.Results.ToString().Count() > 0;
+                    default:
+                        return typedResult.Results;
+                }
+                
+                
             }
 
         }
@@ -102,6 +115,8 @@ namespace Congress
                 else if (unary.Type.FullName.Contains("Bool"))
                     return Expression.Lambda<Func<bool?>>(unary).Compile().Invoke();
             }
+            else if (type == "String[]")
+                return Expression.Lambda<Func<string[]>>(unary).Compile().Invoke();
             else if (type == "String")
                 return Expression.Lambda<Func<string>>(unary).Compile().Invoke();
 
@@ -172,26 +187,15 @@ namespace Congress
                     ParseBinary(b, membersAndUnarysAndBinarys, binarys);
                 }
                 else
-                {
                     membersAndUnarysAndBinarys.Add(new Tuple<MemberExpression, Expression, BinaryExpression>(b.Left as MemberExpression, b.Right as Expression, b));
-                }
                 
                 foreach(Tuple<MemberExpression, Expression, BinaryExpression> item in membersAndUnarysAndBinarys)
                 {
                     string type = item.Item2.Type.Name;
                     var rightValue = GetRightValue(item.Item2, type);
-
-
+                    
                     //Pull the JsonProperty off of the class and use that for serialization.
                     ExtractJsonProperties(operation, item.Item1);
-                    //var attr = item.Item1.Member.GetCustomAttributes(true).ToDictionary(a => a.GetType().Name, a => a);
-                    //if (attr.Keys.Contains("JsonPropertyAttribute"))
-                    //{
-                    //    JsonPropertyAttribute attribute = attr["JsonPropertyAttribute"] as JsonPropertyAttribute;
-                    //    operation.Append(attribute.PropertyName);
-                    //}
-                    //else
-                    //    operation.Append(item.Item1.Member.Name);
 
                     //TODO: Add in, nin, all exists, !exists
                     //https://sunlightlabs.github.io/congress/#operators
@@ -205,9 +209,8 @@ namespace Congress
                         operation.Append("__lte");
                     if (item.Item3.NodeType == ExpressionType.NotEqual)
                         operation.Append("__not");
-
-
-                        operation.AppendFormat("={0}{1}", FormatRightValueAsString(rightValue, type), item == membersAndUnarysAndBinarys.Last() ? "" : "&");
+                    
+                    operation.AppendFormat("={0}{1}", FormatRightValueAsString(rightValue, type), item == membersAndUnarysAndBinarys.Last() ? "" : "&");
                 }
             }
             return operation.ToString();
@@ -225,6 +228,7 @@ namespace Congress
 
         protected override Expression VisitMethodCall(MethodCallExpression expression)
         {
+            // check for where, select, etc.
             if (expression.Method.Name == "Where")
                 innermostWhereExpression = expression;
 

@@ -19,33 +19,33 @@ namespace Congress
 
 
             // Amendment All
-            Amendment[] a = Amendment.All().ToArray();
+            //Amendment[] a = Amendment.All().ToArray();
 
             // Amendment Filter
-            AmendmentFilter[] b = amendments.Where(x =>
-                                x.PerPage == 3 &&
-                                x.AmendmentId == "samdt2921-114" &&
-                                x.Congress == 114 &&
-                                x.Number == 2921 &&
-                                x.Chamber == "senate" &&
-                                x.AmendmentType == "samdt" &&
-                                x.IntroducedOn > new DateTime(2015, 12, 7) &&
-                                x.SponsorType == "person" &&
-                                x.SponsorId == "C001070" &&
-                                x.AmendsBillId == "sres207-114"
-                            ).ToArray();
+            //Amendment b = amendments.Single(x =>
+            //                    x.PerPage == 3 &&
+            //                    x.AmendmentId == "samdt2921-114" &&
+            //                    x.Congress == 114 &&
+            //                    x.Number == 2921 &&
+            //                    x.Chamber == "senate" &&
+            //                    x.AmendmentType == "samdt" &&
+            //                    x.IntroducedOn > new DateTime(2015, 12, 7) &&
+            //                    x.SponsorType == "person" &&
+            //                    x.SponsorId == "C001070" &&
+            //                    x.AmendsBillId == "sres207-114"
+            //                );
 
             Bills bills = new Bills("d50b80bc9cfe43be821059b6470e4ab9");
 
             //// Bill All
-            Bill[] c = Bill.All().ToArray();
+            //Bill[] c = Bill.All().ToArray();
 
             //// Bill Filter
             BillFilter[] d = bills.Where(x =>
                         x.BillId == "hr4193-114" &&
                         x.BillType == "hr" &&
                         x.Chamber == "house" &&
-                        //x.CommitteeIds == "HSII" &&
+                        x.CommitteeIds == new string[] { "HSII" } &&
                         x.Congress == 114 &&
                         x.CoSponsorsCount == 0 &&
                         x.History.Active == false &&
@@ -199,10 +199,10 @@ namespace Congress
 
             string result = string.Format(
                 "a: {0}</p><p> b: {1}</p><p> c: {2}</p><p> d: {3}</p><p> e: {4}</p><p> f: {5}</p><p> g: {6}</p><p> h: {7}</p><p> i: {8}</p><p> j: {9}</p><p> k: {10}</p><p> l: {11}</p><p> m: {12}</p><p> n: {13}</p><p> o: {14}</p><p> p: {15}</p><p> q: {16}</p><p> r: {17}</p><p> s: {18}</p><p> t: {19}</p><p> u: {20}</p><p> v: {21}</p><p> w: {22}</p><p> x: {23}</p><p> y: {24} </p><p> z: {25}",
-                a.Length > 0,
-                b.Length > 0,
-                c.Length > 0,
-                d.Length > 0,
+                true,//a.Length > 0,
+                //b,//.Length > 0,
+                //c.Length > 0,
+                //d.Length > 0,
                 e.Length > 0,
                 f.Length > 0,
                 g.Length > 0,
