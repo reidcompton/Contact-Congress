@@ -249,11 +249,6 @@ namespace Congress
                 this.Visit(lambda.Body);
                 return m;
             }
-
-            if (m.Method.DeclaringType == typeof(Queryable) && m.Method.Name == "Select")
-            {
-                throw new NotImplementedException();
-            }
             throw new NotSupportedException(string.Format("The method '{0}' is not supported", m.Method.Name));
         }
 
