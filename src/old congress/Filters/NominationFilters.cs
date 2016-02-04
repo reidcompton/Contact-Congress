@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Congress.FilterBy
 {
-    public class Nomination
+    public class Nomination : BasicReponse
     {
         [JsonProperty("nomination_id")]
         public StringFilter NominationId { get; set; }
