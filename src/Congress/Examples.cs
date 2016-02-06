@@ -15,7 +15,6 @@ namespace Congress
             Amendment[] a = congress.Amendments.ToArray();
 
             // Amendment Filter
-            DateTime date1 = new DateTime(2015, 12, 7);
             Amendment[] b = congress.Amendments.Where(x =>
                             x.PerPage == 3 &&
                             x.AmendmentId == "samdt2921-114" &&
@@ -23,7 +22,7 @@ namespace Congress
                             x.Number == 2921 &&
                             x.Chamber == "senate" &&
                             x.AmendmentType == "samdt" &&
-                            x.IntroducedOn > date1 &&
+                            x.IntroducedOn > new DateTime(2015, 12, 7) &&
                             x.SponsorType == "person" &&
                             x.SponsorId == "C001070" &&
                             x.AmendsBillId == "sres207-114"
@@ -35,21 +34,21 @@ namespace Congress
 
             //// Bill Filter
             // TODO handle instantiating date inline in query
-            DateTime? date = new DateTime(2015, 12, 8);
             Bill[] d = congress.Bills.Where(x =>
-                        x.BillId == "hr4193-114" &&
-                        x.BillType == "hr" &&
-                        x.Chamber == "house" &&
-                        x.CommitteeIds == new string[] { "HSII" } &&
-                        x.Congress == 114 &&
-                        x.CoSponsorsCount == 0 &&
-                        x.History.Active == false &&
-                        x.History.AwaitingSignature == false &&
-                        x.History.Enacted == false &&
-                        x.History.Vetoed == false &&
-                        x.IntroducedOn == date &&
-                        x.Number == 4193 &&
-                        x.SponsorId == "Y000033"
+                        //x.BillId == "hr4193-114" &&
+                        //x.BillType == "hr" &&
+                        //x.Chamber == "house" &&
+                        //x.CommitteeIds == new string[] { "HSII", "HSII10", "HSII13" } &&
+                        //x.Congress == 114 &&
+                        //x.CoSponsorsCount == 0 &&
+                        //x.History.Active == false &&
+                        //x.History.AwaitingSignature == false &&
+                        //x.History.Enacted == false &&
+                        //x.History.Vetoed == false &&
+                        //x.IntroducedOn == new DateTime(2015, 12, 8) &&
+                        //x.Number == 4193 &&
+                        x.Sponsor != null
+                        //x.SponsorId == "Y000033"
                     ).ToArray();
             
             //// Bill Search
@@ -82,11 +81,10 @@ namespace Congress
             FloorUpdate[] l = congress.FloorUpdates.ToArray();
 
             //// Floor Update Filter
-            DateTime date32 = new DateTime(2015, 12, 9);
             FloorUpdate[] m = congress.FloorUpdates.Where(x =>
                 x.Chamber == "senate" &&
                 x.Congress == 114 &&
-                x.LegislativeDay == date32
+                x.LegislativeDay == new DateTime(2015, 12, 9)
             ).ToArray();
 
             //// Hearing All
@@ -111,14 +109,13 @@ namespace Congress
             Legislator[] r = congress.Legislators.Where(x => x.Latitude == 42.96 && x.Longitude == -108.09).ToArray();
 
             //// Legislator Filter
-            DateTime date4 = new DateTime(1968, 7, 4);
             Legislator[] s = congress.Legislators.Where(x =>
                 x.BioguideID == "L000585" &&
-                x.Birthday > date4 &&
+                x.Birthday > new DateTime(1968, 7, 4) &&
                 x.Chamber == "house" &&
                 x.CrpId == "N00037031" &&
                 x.District == 18 &&
-                //x.FecIds == new string[] { "H6IL18088" } &&
+                x.FecIds == new string[] { "H6IL18088" } &&
                 x.FirstName == "Darin" &&
                 x.Gender == "M" &&
                 x.GovTrackId == "412674" &&
@@ -133,26 +130,24 @@ namespace Congress
             Nomination[] t = congress.Nominations.ToArray();
             
             // Nomination Filter
-            DateTime date5 = new DateTime(2015, 11, 19);
             Nomination[] u = congress.Nominations.Where(xy =>
                 xy.NominationId == "PN951-02-114" &&
                 xy.Congress == 114 &&
                 xy.Number == "951-02" &&
                 xy.Organization == "Foreign Service" &&
-                //xy.CommitteeIds == "SSFR" &&
-                xy.LastActionAt == date5
+                xy.CommitteeIds.Contains("SSFR") &&
+                xy.LastActionAt == new DateTime(2015, 11, 19)
             ).ToArray();
 
             //// Upcoming Bill All
             UpcomingBill[] v = congress.UpcomingBills.ToArray();
 
             //// Upcoming Bill Filter
-            DateTime date6 = new DateTime(2015, 12, 9);
             UpcomingBill[] w = congress.UpcomingBills.Where(xy =>
-                xy.BillId == "s2012-114" &&
+                xy.BillId == "s1177-114" &&
                 xy.Chamber == "senate" &&
                 xy.Congress == 114 &&
-                xy.LegislativeDay == date6 &&
+                xy.LegislativeDay == new DateTime(2015, 12, 9) &&
                 xy.Range == "day" &&
                 xy.SourceType == "senate_daily"
             ).ToArray();

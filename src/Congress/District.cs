@@ -21,13 +21,13 @@ namespace Congress
     {
         // queryable fields
         [JsonProperty("zip")]
-        public int Zip { get; set; }
+        public int? Zip { get; set; }
 
         [JsonProperty("longitude")]
-        public double Longitude { get; set; }
+        public double? Longitude { get; set; }
 
         [JsonProperty("latitude")]
-        public double Latitude { get; set; }
+        public double? Latitude { get; set; }
 
         // non-queryable fields
         [JsonProperty("state")]
