@@ -37,7 +37,6 @@ namespace Congress.FilterBy
 
         [JsonProperty("sponsor_id")]
         public StringFilter SponsorId { get; set; }
-
         [JsonProperty("introduced_on")]
         public DateFilter IntroducedOn { get; set; }
 
