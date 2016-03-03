@@ -10,13 +10,6 @@
     padding-right: 15px;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 /* Carousel */
 .carousel-caption {
     z-index: 10 !important;
@@ -32,3 +25,78 @@ textarea {
         z-index: 10 !important;
     }
 }
+
+.group:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+
+#Address { width:95% }
+
+#responseHeader {
+    position:relative;
+    z-index:1;
+}
+
+.intro:first-child {
+    border-left:1px solid black;
+}
+
+.intro {
+    background: #eee none repeat scroll 0 0;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    float: left;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    width: 140px;
+    z-index: 0;
+    cursor:pointer;
+}
+
+.intro.selected {
+    border-bottom: medium none;
+    padding-bottom: 11px;
+    background:#fff;
+}
+
+.intro .name {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.intro .headshot {
+    width: 80px;
+}
+
+#responseBox {
+    border: 1px solid black;
+    padding: 10px;
+    position: relative;
+    top: -1px;
+    z-index: 0;
+}
+
+#responseBox form {
+    display: none;
+}
+
+#responseBox form.selected {
+    display: block;
+}
+
+#responseBox form input {
+    border: 1px solid black;
+    display: block;
+    margin: 10px 0;
+    width: 50%;
+}
+
+#responseBox form textarea {
+    border: 1px solid black;
+    width: 50%;
+}
+
+#responseBox form input#submit {
+    width: 20%;
+}
+

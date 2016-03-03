@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Congress;
+using ContactCongress.Models;
+using Geocoding;
+using Geocoding.Google;
 
 namespace Sunlight_Congress_Web.Controllers
 {
@@ -12,7 +15,8 @@ namespace Sunlight_Congress_Web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            AddressModel model = new AddressModel();
+            return View(model);
         }
 
 
@@ -21,6 +25,16 @@ namespace Sunlight_Congress_Web.Controllers
             string result = Tests.RunTests();
             ViewBag.Result = result;
             return View();
+        }
+
+        public JsonResult Legislators(string address)
+        {
+            GoogleGeocoder geocoder = new GoogleGeocoder(Settings.GoogleMapsApiKey);
+            Address response = geocoder.Geocode(address).First();
+            Congress.Congress client = new Congress.Congress(Settings.SunlightCongressApiKey);
+            Legislator[] legislators = client.Legislators.Where(x => x.Latitude == response.Coordinates.Latitude && x.Longitude == response.Coordinates.Longitude).ToArray();
+            
+            return Json(legislators);
         }
 
 

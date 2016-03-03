@@ -7,6 +7,7 @@
     "Congress": "1.0.0-*",
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "Geocoding.net": "3.3.0",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
     "Microsoft.AspNet.Authentication.Facebook": "1.0.0-rc1-final",
     "Microsoft.AspNet.Authentication.Google": "1.0.0-rc1-final",

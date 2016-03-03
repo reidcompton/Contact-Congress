@@ -136,6 +136,15 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
+      "Geocoding.net/3.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Geocoding.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Geocoding.dll": {}
+        }
+      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "frameworkAssemblies": [
@@ -2174,6 +2183,15 @@
         },
         "runtime": {
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
+        }
+      },
+      "Geocoding.net/3.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Geocoding.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Geocoding.dll": {}
         }
       },
       "Ix-Async/1.2.5": {
@@ -4219,6 +4237,15 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
+      "Geocoding.net/3.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Geocoding.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Geocoding.dll": {}
+        }
+      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "frameworkAssemblies": [
@@ -6227,6 +6254,16 @@
         "lib/net451/EntityFramework.Relational.Design.dll",
         "lib/net451/EntityFramework.Relational.Design.xml",
         "lib/netcore50/_._"
+      ]
+    },
+    "Geocoding.net/3.3.0": {
+      "type": "package",
+      "sha512": "QiAno4dNSEGcrvyq8XEOiJuzjuEcoU/fc0Qjn33IoYljWoPzmVwNpAjYyJFdXOp380U63nSpM5iP0QPlv4NRSw==",
+      "files": [
+        "Geocoding.net.3.3.0.nupkg",
+        "Geocoding.net.3.3.0.nupkg.sha512",
+        "Geocoding.net.nuspec",
+        "lib/net40/Geocoding.dll"
       ]
     },
     "Ix-Async/1.2.5": {
@@ -8367,6 +8404,7 @@
       "Congress >= 1.0.0-*",
       "EntityFramework.Commands >= 7.0.0-rc1-final",
       "EntityFramework.MicrosoftSqlServer >= 7.0.0-rc1-final",
+      "Geocoding.net >= 3.3.0",
       "Microsoft.AspNet.Authentication.Cookies >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Authentication.Facebook >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Authentication.Google >= 1.0.0-rc1-final",
