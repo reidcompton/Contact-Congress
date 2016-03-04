@@ -9,6 +9,7 @@
     "jquery-validation": "1.11.1",
     "jquery-validation-unobtrusive": "3.2.2",
     "jquery-ajax-unobtrusive": "^3.2.3",
-    "angular": "^1.4.7"
+    "angular": "^1.4.7",
+    "fullpage.js": "^2.7.8"
   }
 }

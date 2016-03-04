@@ -136,6 +136,12 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
+      "FullPageJS/2.6.8": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "2.1.4"
+        }
+      },
       "Geocoding.net/3.3.0": {
         "type": "package",
         "compile": {
@@ -157,6 +163,9 @@
         "runtime": {
           "lib/net45/System.Interactive.Async.dll": {}
         }
+      },
+      "jQuery/2.1.4": {
+        "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
@@ -2185,6 +2194,12 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
+      "FullPageJS/2.6.8": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "2.1.4"
+        }
+      },
       "Geocoding.net/3.3.0": {
         "type": "package",
         "compile": {
@@ -2206,6 +2221,9 @@
         "runtime": {
           "lib/net45/System.Interactive.Async.dll": {}
         }
+      },
+      "jQuery/2.1.4": {
+        "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
@@ -4237,6 +4255,12 @@
           "lib/dnx451/EntityFramework.Relational.Design.dll": {}
         }
       },
+      "FullPageJS/2.6.8": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "2.1.4"
+        }
+      },
       "Geocoding.net/3.3.0": {
         "type": "package",
         "compile": {
@@ -4258,6 +4282,9 @@
         "runtime": {
           "lib/net45/System.Interactive.Async.dll": {}
         }
+      },
+      "jQuery/2.1.4": {
+        "type": "package"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
@@ -6256,6 +6283,21 @@
         "lib/netcore50/_._"
       ]
     },
+    "FullPageJS/2.6.8": {
+      "type": "package",
+      "sha512": "IrWdTdwMDyCeZtJCfqLi9JIq+BF56YxoRRCwoy6h2mZ+CENXzdqieBuYFs3bXYWGZogylbY//66oYf6jkyqkOA==",
+      "files": [
+        "Content/Content/jquery.fullPage.css",
+        "Content/Scripts/jquery.fullPage.js",
+        "Content/Scripts/jquery.fullPage.min.js",
+        "Content/Scripts/vendors/jquery.easings.min.js",
+        "Content/Scripts/vendors/jquery.slimscroll.js",
+        "Content/Scripts/vendors/jquery.slimscroll.min.js",
+        "FullPageJS.2.6.8.nupkg",
+        "FullPageJS.2.6.8.nupkg.sha512",
+        "FullPageJS.nuspec"
+      ]
+    },
     "Geocoding.net/3.3.0": {
       "type": "package",
       "sha512": "QiAno4dNSEGcrvyq8XEOiJuzjuEcoU/fc0Qjn33IoYljWoPzmVwNpAjYyJFdXOp380U63nSpM5iP0QPlv4NRSw==",
@@ -6279,6 +6321,23 @@
         "lib/net45/System.Interactive.Async.XML",
         "lib/portable-windows8+net45+wp8/System.Interactive.Async.dll",
         "lib/portable-windows8+net45+wp8/System.Interactive.Async.XML"
+      ]
+    },
+    "jQuery/2.1.4": {
+      "type": "package",
+      "sha512": "X8mRMt2HNI6kxYMWyQEcOumpAzEAs95DWSjM6FlX3DEVM5afuj8Abj0Y6i6H9wK7I7n3bJ0fnDA80OfKV19HQA==",
+      "files": [
+        "Content/Scripts/jquery-2.1.4.js",
+        "Content/Scripts/jquery-2.1.4.min.js",
+        "Content/Scripts/jquery-2.1.4.min.map",
+        "Content/Scripts/jquery-2.1.4-vsdoc.js",
+        "jQuery.2.1.4.nupkg",
+        "jQuery.2.1.4.nupkg.sha512",
+        "jQuery.nuspec",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/jquery-2.1.4.intellisense.js",
+        "Tools/uninstall.ps1"
       ]
     },
     "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -8404,6 +8463,7 @@
       "Congress >= 1.0.0-*",
       "EntityFramework.Commands >= 7.0.0-rc1-final",
       "EntityFramework.MicrosoftSqlServer >= 7.0.0-rc1-final",
+      "FullPageJS >= 2.6.8",
       "Geocoding.net >= 3.3.0",
       "Microsoft.AspNet.Authentication.Cookies >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Authentication.Facebook >= 1.0.0-rc1-final",

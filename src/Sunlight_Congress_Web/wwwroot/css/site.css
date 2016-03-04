@@ -26,13 +26,22 @@
     }
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .group:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
 
-#Address { width:95% }
+.leader {
+    text-align:center;
+}
+
+#Address { width:93% }
 
 #responseHeader {
     position:relative;
     z-index:1;
+    margin-top:50px;
 }
 
 .intro:first-child {

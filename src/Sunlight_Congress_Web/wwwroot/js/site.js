@@ -11,9 +11,5 @@ $(document).ready(function () {
     //    });
     //});
 
-    function switchForm() {
-        var formId = $(this).attr('data-form-id');
-        $(this).addClass('selected').siblings('selected').removeClass('selected');
-        $('#responseBox form#' + formId).addClass('selected').siblings('selected').removeClass('selected');
-    }
+    $('.fullpage').fullpage();
 });
