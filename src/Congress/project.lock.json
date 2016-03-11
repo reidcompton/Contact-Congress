@@ -13,7 +13,7 @@
         }
       }
     },
-    "DNX,Version=v4.5.1/win7-x86": {
+    "DNX,Version=v4.5.1/osx.10.10-x86": {
       "Newtonsoft.Json/7.0.1": {
         "type": "package",
         "compile": {
@@ -24,7 +24,7 @@
         }
       }
     },
-    "DNX,Version=v4.5.1/win7-x64": {
+    "DNX,Version=v4.5.1/osx.10.10-x64": {
       "Newtonsoft.Json/7.0.1": {
         "type": "package",
         "compile": {
