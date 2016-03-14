@@ -3,6 +3,11 @@
     padding-bottom: 20px;
 }
 
+.fullpage {
+    max-width:100% !important;
+    padding:0 !important;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -36,7 +41,37 @@
     text-align:center;
 }
 
-#Address { width:93% }
+#aya-img {
+    background-image: url("/images/aya.jpg");
+    background-position: center center;
+    background-size: cover;
+    display: block;
+    filter: blur(10px);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+#LocationSubmit > img {
+    display: block;
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 20px;
+    width: 40px;
+}
+
+#Address {
+    background: rgba(255, 255, 255, 0.6) none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 3px;
+    color: #444;
+    font-size: 30px;
+    height: 80px;
+    padding: 10px;
+    width: 93%;
+}
 
 #responseHeader {
     position:relative;
@@ -45,32 +80,36 @@
 }
 
 .intro:first-child {
-    border-left:1px solid black;
+    border-left:1px solid white;
 }
 
 .intro {
-    background: #eee none repeat scroll 0 0;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    border-top: 1px solid black;
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+    cursor: pointer;
     float: left;
     padding: 10px;
     position: relative;
     text-align: center;
     width: 140px;
     z-index: 0;
-    cursor:pointer;
 }
 
 .intro.selected {
+    background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
     border-bottom: medium none;
     padding-bottom: 11px;
-    background:#fff;
+}
+.intro.selected .name {
+    color:#333;
 }
 
 .intro .name {
     font-size: 12px;
     font-weight: bold;
+    color:#fff;
 }
 
 .intro .headshot {
@@ -78,11 +117,13 @@
 }
 
 #responseBox {
-    border: 1px solid black;
+    background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
+    border: 1px solid white;
     padding: 10px;
     position: relative;
     top: -1px;
     z-index: 0;
+    margin-bottom:30px;
 }
 
 #responseBox form {
@@ -94,15 +135,21 @@
 }
 
 #responseBox form input {
-    border: 1px solid black;
+    background: rgba(255, 255, 255, 0.4) none repeat scroll 0 0;
+    border: medium none;
     display: block;
     margin: 10px 0;
+    padding: 5px;
     width: 50%;
 }
 
 #responseBox form textarea {
-    border: 1px solid black;
+    background: rgba(255, 255, 255, 0.4) none repeat scroll 0 0;
+    border: medium none;
+    color: #666;
+    padding: 5px;
     width: 50%;
+    height:200px;
 }
 
 #responseBox form input#submit {

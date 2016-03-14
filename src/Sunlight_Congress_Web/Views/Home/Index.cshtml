@@ -5,7 +5,8 @@ ViewData["Title"] = "Home Page";
 
 
 
-<div class="container section">
+<div class="container-fluid section">
+    <div id="aya-img"></div>
     <div class="leader">
         <h1>My Issue</h1>
         <p>It is a really important issue</p>
@@ -13,12 +14,12 @@ ViewData["Title"] = "Home Page";
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div id="AddressBox">
-                <a id="LocationSubmit" href="#">Loc</a>
+                <a id="LocationSubmit" href="#"><img src="~/images/gps.svg"></a> <!-- SVG Credit => Freepik -->
                 @Html.TextBoxFor(m => m.Address, new { @placeholder = "Address" })
                 <a id="AddressSubmit" href="#">Q</a>
             </div>
         </div>
-        <div id="response" class="col-md-10 col-md-offset-1" ng-cloak ng-show="contacts">
+        <div id="response" class="col-md-8 col-md-offset-2" ng-cloak ng-show="contacts">
             <div id="responseHeader" class="group">
                 <div class="intro" ng-repeat="contact in contacts" ng-class="{  selected:$first}" data-form-id="{{contact.first_name + '_' + contact.last_name}}" ng-click="contacts.switchForm($event)">
                     <p class="name">{{contact.first_name + ' ' + contact.last_name}}</p>
@@ -28,6 +29,7 @@ ViewData["Title"] = "Home Page";
             <div id="responseBox" class="group">
                 <form id="{{contact.first_name + '_' + contact.last_name}}" ng-repeat="contact in contacts" ng-class="{selected:$first}" method="post" ng-submit="processForm('reid@reidcompton.com')">
                     @*<input type="text" name="toEmails" value="reid@reidcompton.com" ng-model="formData.toEmails" ng-show="false" />*@
+                    <h3>{{contact.title + '. ' + contact.first_name + ' ' + contact.last_name}}</h3>
                     <input type="text" id="name" placeholder="Name" ng-model="formData.fromName" />
                     <input type="text" id="email" placeholder="Email" ng-model="formData.fromEmail" />
                     <input type="text" id="subject" placeholder="Subject" ng-model="formData.subject" />
