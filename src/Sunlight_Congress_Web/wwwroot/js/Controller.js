@@ -4,11 +4,13 @@ contact.controller("ContactCtrl", function ($scope, $http) {
     $('#AddressSubmit').off('click').on('click', function (e) {
         e.preventDefault();
         var address = $('#Address').val();
+        $('#loading').removeClass('hide');
         $http.get('/Home/Legislators', {
             params: {
                 address: address
             }
         }).success(function (data) {
+            $('#loading').addClass('hide');
             $scope.contacts = data || [];
             $scope.contacts.switchForm = function (event) {
                 var formId = $(event.currentTarget).attr('data-form-id');
