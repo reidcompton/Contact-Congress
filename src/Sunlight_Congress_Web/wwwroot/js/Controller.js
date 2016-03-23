@@ -4,11 +4,14 @@ contact.controller("ContactCtrl", function ($scope, $http) {
     $('#AddressSubmit').off('click').on('click', function (e) {
         e.preventDefault();
         var address = $('#Address').val();
+        $('#loading').removeClass('hide');
         $http.get('/Home/Legislators', {
             params: {
                 address: address
             }
         }).success(function (data) {
+            $('#loading').addClass('hide');
+            $('.content').addClass('formPresent');
             $scope.contacts = data || [];
             $scope.contacts.switchForm = function (event) {
                 var formId = $(event.currentTarget).attr('data-form-id');
@@ -23,6 +26,7 @@ contact.controller("ContactCtrl", function ($scope, $http) {
             navigator.geolocation.getCurrentPosition(getLegislatorsByLocation);
         else
             alert("Geolocation not supported by this browser");
+        $('#loading').removeClass('hide');
         function getLegislatorsByLocation(position) {
             $http.get('/Home/LegislatorsByLatLong', {
                 params: {
@@ -30,6 +34,8 @@ contact.controller("ContactCtrl", function ($scope, $http) {
                     latitude: parseFloat(position.coords.longitude.toFixed(6))
                 }
             }).success(function (data) {
+            $('#loading').addClass('hide');
+            $('.content').addClass('formPresent');
                 $scope.contacts = data || [];
                 $scope.contacts.switchForm = function (event) {
                     var formId = $(event.currentTarget).attr('data-form-id');

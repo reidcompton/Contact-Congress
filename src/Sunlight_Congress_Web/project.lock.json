@@ -2060,7 +2060,7 @@
         }
       }
     },
-    "DNX,Version=v4.5.1/win7-x86": {
+    "DNX,Version=v4.5.1/osx.10.10-x86": {
       "Congress/1.0.0": {
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
@@ -3235,9 +3235,6 @@
         },
         "runtime": {
           "lib/dnx451/Microsoft.AspNet.Server.Kestrel.dll": {}
-        },
-        "native": {
-          "runtimes/win7-x86/native/libuv.dll": {}
         }
       },
       "Microsoft.AspNet.StaticFiles/1.0.0-rc1-final": {
@@ -4121,7 +4118,7 @@
         }
       }
     },
-    "DNX,Version=v4.5.1/win7-x64": {
+    "DNX,Version=v4.5.1/osx.10.10-x64": {
       "Congress/1.0.0": {
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
@@ -5298,7 +5295,7 @@
           "lib/dnx451/Microsoft.AspNet.Server.Kestrel.dll": {}
         },
         "native": {
-          "runtimes/win7-x64/native/libuv.dll": {}
+          "runtimes/osx/native/libuv.dylib": {}
         }
       },
       "Microsoft.AspNet.StaticFiles/1.0.0-rc1-final": {
@@ -7099,7 +7096,7 @@
     },
     "Microsoft.CodeAnalysis.Analyzers/1.0.0": {
       "type": "package",
-      "sha512": "2+V/VDgZu59Thrlp+FQH38H/SmPBegMKsG0ie1ZZyHtx7kJNEozIx/p9zs0UrolX0uyYX7Ouoj3Q3Be15lqXxA==",
+      "sha512": "E7VdmGw6xO3VHWapC+pNLZmo6yncS53UY3bmb5WZm9wliJBB1A6brgzKA4fcqiLrmJFx71r0M2zEbRDphRLUNg==",
       "files": [
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
