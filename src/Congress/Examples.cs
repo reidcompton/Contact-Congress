@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Congress
+namespace SunlightCongress
 {
     public class Tests
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq.Expressions;
 
-namespace Congress
+namespace SunlightCongress
 {
     public class CongressionalDocuments : SunlightData<CongressionalDocument>
     {

@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 
-namespace Congress
+namespace SunlightCongress
 {
     public class QueryProvider : IQueryProvider
     {

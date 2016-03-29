@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Linq.Expressions;
 
-namespace Congress
+namespace SunlightCongress
 {
     public class FloorUpdates : SunlightData<FloorUpdate>
     {

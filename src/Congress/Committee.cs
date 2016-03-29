@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Linq.Expressions;
 
-namespace Congress
+namespace SunlightCongress
 {
     public class Committees : SunlightData<Committee>
     {

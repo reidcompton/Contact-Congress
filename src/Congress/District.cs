@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Congress
+namespace SunlightCongress
 {
     public class Districts : SunlightData<District>
     {

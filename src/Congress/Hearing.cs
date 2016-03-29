@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq.Expressions;
 
-namespace Congress
+namespace SunlightCongress
 {
     public class Hearings : SunlightData<Hearing>
     {
