@@ -62,11 +62,11 @@ namespace Sunlight_Congress_Web.Controllers
             try
             {
                 client.Send(mail);
-                result = "success";
+                result = "Thanks! Your email has been sent!";
             }
             catch
             {
-                result = "failed";
+                result = "Sorry, something went wrong. Please try again soon.";
             }
             return Json(result);
         }
